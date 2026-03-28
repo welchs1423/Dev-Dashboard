@@ -102,6 +102,19 @@
     ]
   },
   {
+    "id": 53460385,
+    "company": "엑스페릭스",
+    "title": "USB Device SDK 개발_7년이상",
+    "skills": [
+      "C#",
+      "C++",
+      "Java",
+      "Linux",
+      "Windows",
+      "SW"
+    ]
+  },
+  {
     "id": 53448087,
     "company": "크레셈",
     "title": "AI 연구개발 엔지니어 모집",
@@ -116,9 +129,9 @@
     ]
   },
   {
-    "id": 53460385,
+    "id": 53460374,
     "company": "엑스페릭스",
-    "title": "USB Device SDK 개발_7년이상",
+    "title": "USB Device SDK 개발_3년이상",
     "skills": [
       "C#",
       "C++",
@@ -135,19 +148,6 @@
     "skills": [
       "C#",
       "Visual Studio"
-    ]
-  },
-  {
-    "id": 53460374,
-    "company": "엑스페릭스",
-    "title": "USB Device SDK 개발_3년이상",
-    "skills": [
-      "C#",
-      "C++",
-      "Java",
-      "Linux",
-      "Windows",
-      "SW"
     ]
   },
   {
