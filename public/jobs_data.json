@@ -1,0 +1,217 @@
+[
+  {
+    "id": 53342857,
+    "company": "에프엘이에스",
+    "title": "flutter 개발자 경력직 채용",
+    "skills": [
+      "Dart",
+      "Firebase",
+      "Flutter",
+      "Git",
+      "iOS",
+      "Linux",
+      "Node.js",
+      "Auth0",
+      "Firebase Hosting"
+    ]
+  },
+  {
+    "id": 53459667,
+    "company": "오케스트로",
+    "title": "AI 모델러 경력 채용",
+    "skills": [
+      "Pandas",
+      "Python",
+      "PyTorch",
+      "scikit-learn",
+      "TensorFlow",
+      "Spark",
+      "AI/인공지능"
+    ]
+  },
+  {
+    "id": 53330236,
+    "company": "에프엘이에스",
+    "title": "flutter 개발자 경력직 채용",
+    "skills": [
+      "Dart",
+      "Firebase",
+      "Flutter",
+      "Git",
+      "iOS",
+      "Linux",
+      "Node.js",
+      "Auth0",
+      "Firebase Hosting"
+    ]
+  },
+  {
+    "id": 53446667,
+    "company": "블루닷",
+    "title": "코덱 소프트웨어 엔지니어 (경력)",
+    "skills": [
+      "Embedded",
+      "FPGA"
+    ]
+  },
+  {
+    "id": 53459647,
+    "company": "오케스트로",
+    "title": "System Engineer (Data Command) 채용",
+    "skills": [
+      "Azure DevOps",
+      "Kubernetes",
+      "Linux",
+      "Windows",
+      "OpenStack"
+    ]
+  },
+  {
+    "id": 53459653,
+    "company": "오케스트로",
+    "title": "AI 제품 개발자 경력 채용",
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Python",
+      "PyTorch",
+      "TensorFlow",
+      "AI/인공지능"
+    ]
+  },
+  {
+    "id": 53460216,
+    "company": "하이퍼스타",
+    "title": "풀스택 개발자 엔지니어",
+    "skills": [
+      "Processing"
+    ]
+  },
+  {
+    "id": 53448098,
+    "company": "크레셈",
+    "title": "SMART AI (C#, WPF) 개발 엔지니어 모집",
+    "skills": [
+      ".NET",
+      "Entity Framework",
+      "Git",
+      "Microsoft SQL Server",
+      "Oracle",
+      "Visual Studio",
+      "Windows"
+    ]
+  },
+  {
+    "id": 53448087,
+    "company": "크레셈",
+    "title": "AI 연구개발 엔지니어 모집",
+    "skills": [
+      "Azure Database for MySQL",
+      "Azure Database for PostgreSQL",
+      "Google BigQuery",
+      "HTML5",
+      "MSSQL",
+      "MySQL",
+      "Python"
+    ]
+  },
+  {
+    "id": 53460385,
+    "company": "엑스페릭스",
+    "title": "USB Device SDK 개발_7년이상",
+    "skills": [
+      "C#",
+      "C++",
+      "Java",
+      "Linux",
+      "Windows",
+      "SW"
+    ]
+  },
+  {
+    "id": 53448079,
+    "company": "크레셈",
+    "title": "제어기술팀 SW개발 경력 채용",
+    "skills": [
+      "C#",
+      "Visual Studio"
+    ]
+  },
+  {
+    "id": 53460374,
+    "company": "엑스페릭스",
+    "title": "USB Device SDK 개발_3년이상",
+    "skills": [
+      "C#",
+      "C++",
+      "Java",
+      "Linux",
+      "Windows",
+      "SW"
+    ]
+  },
+  {
+    "id": 53460446,
+    "company": "엠투피아이",
+    "title": "PHP 웹개발자 채용(경력3~5년)",
+    "skills": [
+      "Apache Tomcat",
+      "CSS 3",
+      "JavaScript",
+      "jQuery",
+      "Laravel",
+      "Linux",
+      "MySQL",
+      "PHP",
+      "XML"
+    ]
+  },
+  {
+    "id": 53460450,
+    "company": "엠투피아이",
+    "title": "PHP 웹개발자 채용(경력6~8년)",
+    "skills": [
+      "Apache Tomcat",
+      "CSS 3",
+      "JavaScript",
+      "jQuery",
+      "Laravel",
+      "Linux",
+      "MySQL",
+      "PHP",
+      "XML"
+    ]
+  },
+  {
+    "id": 53462836,
+    "company": "퍼플아카데미",
+    "title": "데브옵스 엔지니어(DevOps) 채용",
+    "skills": [
+      "Amazon EKS",
+      "Amazon RDS",
+      "Amazon S3",
+      "Argo",
+      "GitHub Actions",
+      "Helm",
+      "Kubernetes",
+      "Terraform",
+      "AWS"
+    ]
+  },
+  {
+    "id": 53446561,
+    "company": "아인잡",
+    "title": "프론트엔드 개발자 (경력)",
+    "skills": [
+      "CSS 3",
+      "GitHub",
+      "Jira",
+      "Next.js",
+      "React",
+      "Slack",
+      "TypeScript",
+      "Webpack",
+      "Notion"
+    ]
+  }
+]
