@@ -3,6 +3,7 @@ import json
 import requests
 
 def fetch_jumpit_jobs():
+    # 점핏 채용 공고 API 엔드포인트
     url = "https://api.jumpit.co.kr/api/positions"
     
     headers = {
@@ -20,25 +21,24 @@ def fetch_jumpit_jobs():
         data = response.json()
 
         jobs = []
-        
         positions = data.get("result", {}).get("positions", [])
 
         for item in positions:
+            job_id = item.get("id")
             job = {
-                "id": item.get("id"),
+                "id": job_id,
                 "company": item.get("companyName"),
                 "title": item.get("title"),
-                "skills": item.get("techStacks", [])
+                "skills": item.get("techStacks", []),
+                # 실제 점핏 공고 상세 페이지 URL 생성
+                "url": f"https://www.jumpit.co.kr/position/{job_id}"
             }
             jobs.append(job)
 
         return jobs
 
-    except requests.exceptions.RequestException as e:
-        print(f"Request Error: {e}")
-        return []
-    except KeyError as e:
-        print(f"Data Parsing Error: {e}")
+    except Exception as e:
+        print(f"Error fetching data: {e}")
         return []
 
 def main():
