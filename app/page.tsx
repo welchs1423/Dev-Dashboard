@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-grow max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <main className="grow max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
           
           {/* 서비스 소개 (애드센스 승인용 텍스트) */}

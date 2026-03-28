@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Privacy() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-12 text-gray-800 leading-relaxed">
@@ -25,7 +27,9 @@ export default function Privacy() {
 
       <footer className="mt-12 pt-8 border-t text-sm text-gray-500">
         <p>시행 일자: 2026년 3월 29일</p>
-        <a href="/" className="text-blue-600 hover:underline mt-4 block">메인 페이지로 돌아가기</a>
+        <Link href="/" className="text-blue-600 hover:underline mt-4 block">
+          메인 페이지로 돌아가기
+        </Link>
       </footer>
     </div>
   );
