@@ -14,6 +14,7 @@ interface Job {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
+  const [customSkill, setCustomSkill] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
@@ -31,7 +32,20 @@ export default function Home() {
             t.company.trim() === job.company.trim() && t.title.trim() === job.title.trim()
           ))
         );
-        setJobs(uniqueJobs);
+
+        const jumpit = uniqueJobs.filter(j => j.id.startsWith('jumpit'));
+        const saramin = uniqueJobs.filter(j => j.id.startsWith('saramin'));
+        const wanted = uniqueJobs.filter(j => j.id.startsWith('wanted'));
+
+        const mixedJobs: Job[] = [];
+        const maxLength = Math.max(jumpit.length, saramin.length, wanted.length);
+        for (let i = 0; i < maxLength; i++) {
+          if (jumpit[i]) mixedJobs.push(jumpit[i]);
+          if (saramin[i]) mixedJobs.push(saramin[i]);
+          if (wanted[i]) mixedJobs.push(wanted[i]);
+        }
+
+        setJobs(mixedJobs);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -122,6 +136,9 @@ export default function Home() {
       matchSkill = true;
     } else if (selectedSkill === "Bookmark") {
       matchSkill = bookmarkedJobs.includes(job.id);
+    } else if (selectedSkill === "Custom") {
+      const keyword = customSkill.toLowerCase().trim();
+      matchSkill = keyword === "" || (job.skills && job.skills.some(s => s.toLowerCase().includes(keyword)));
     } else {
       matchSkill = job.skills && job.skills.includes(selectedSkill);
     }
@@ -274,11 +291,12 @@ export default function Home() {
             </div>
             
             {!isLoading && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap items-center gap-2 mb-6">
                 {filterOptions.map(skill => (
                   <button
                     key={skill}
                     onClick={() => {
+                      setCustomSkill(""); 
                       setSelectedSkill(skill);
                       setDisplayCount(20);
                     }}
@@ -291,6 +309,28 @@ export default function Home() {
                     {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill === "Hidden" ? "🚫 숨긴 기업" : skill}
                   </button>
                 ))}
+                
+                <div className="relative flex items-center ml-1">
+                  <input
+                    type="text"
+                    placeholder="🔍 원하는 스택 직접 입력"
+                    value={customSkill}
+                    onChange={(e) => {
+                      setCustomSkill(e.target.value);
+                      if (e.target.value.trim() !== "") {
+                        setSelectedSkill("Custom");
+                      } else {
+                        setSelectedSkill("All");
+                      }
+                      setDisplayCount(20);
+                    }}
+                    className={`px-4 py-1.5 text-xs rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 w-44 focus:w-56 ${
+                      selectedSkill === "Custom"
+                        ? 'bg-blue-50 border-blue-300 text-blue-700 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300 placeholder-blue-300'
+                        : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 placeholder-gray-400'
+                    }`}
+                  />
+                </div>
               </div>
             )}
 
