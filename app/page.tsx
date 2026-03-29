@@ -472,9 +472,33 @@ export default function Home() {
                     >
                       <div className="flex justify-between items-start">
                         <div className="pr-32">
-                          <div className="flex items-center gap-2 mb-1">
+                          <div className="flex items-center gap-3 mb-2">
                             {getPlatformBadge(job.id)}
-                            <p className="text-sm text-gray-500 dark:text-gray-400">{job.company}</p>
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{job.company}</p>
+                              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <a 
+                                  href={`https://www.google.com/search?q=잡플래닛 ${encodeURIComponent(job.company)}`} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="text-[10px] px-1.5 py-0.5 bg-green-50 text-green-600 border border-green-200 rounded hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800 transition-colors" 
+                                  title="잡플래닛 검색" 
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  JP
+                                </a>
+                                <a 
+                                  href={`https://www.google.com/search?q=블라인드 ${encodeURIComponent(job.company)}`} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-200 rounded hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800 transition-colors" 
+                                  title="블라인드 검색" 
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  B
+                                </a>
+                              </div>
+                            </div>
                           </div>
                           <h3 className="font-bold text-gray-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-base">
                             {job.title}
