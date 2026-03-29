@@ -166,7 +166,7 @@ export default function Home() {
       return false;
     }
 
-    let matchPlatform = selectedPlatform === "All" || job.id.startsWith(selectedPlatform);
+    const matchPlatform = selectedPlatform === "All" || job.id.startsWith(selectedPlatform);
 
     let matchSkill = false;
     if (selectedSkill === "All") {
