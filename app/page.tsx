@@ -16,7 +16,9 @@ export default function Home() {
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
+  const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
 
+  // 초기 데이터 페칭 및 로컬스토리지 북마크 불러오기
   useEffect(() => {
     fetch('/jobs_data.json')
       .then((res) => res.json())
@@ -28,7 +30,17 @@ export default function Home() {
         console.error("Data fetch error:", error);
         setIsLoading(false);
       });
+
+    const savedBookmarks = localStorage.getItem('dev_dashboard_bookmarks');
+    if (savedBookmarks) {
+      setBookmarkedJobs(JSON.parse(savedBookmarks));
+    }
   }, []);
+
+  // 북마크 상태가 변경될 때마다 로컬스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('dev_dashboard_bookmarks', JSON.stringify(bookmarkedJobs));
+  }, [bookmarkedJobs]);
 
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
@@ -47,17 +59,31 @@ export default function Home() {
   };
 
   const topSkills = getTopSkills();
-  const filterOptions = ["All", ...topSkills];
+  const filterOptions = ["All", "Bookmark", ...topSkills];
 
-  const filteredJobs = selectedSkill === "All" 
-    ? jobs 
-    : jobs.filter(job => job.skills && job.skills.includes(selectedSkill));
+  const filteredJobs = jobs.filter(job => {
+    if (selectedSkill === "All") return true;
+    if (selectedSkill === "Bookmark") return bookmarkedJobs.includes(job.id);
+    return job.skills && job.skills.includes(selectedSkill);
+  });
 
-  // 현재 화면에 보여줄 공고 데이터 자르기
   const visibleJobs = filteredJobs.slice(0, displayCount);
 
   const handleLoadMore = () => {
     setDisplayCount(prevCount => prevCount + 20);
+  };
+
+  const toggleBookmark = (e: React.MouseEvent, jobId: string) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    
+    setBookmarkedJobs(prev => {
+      if (prev.includes(jobId)) {
+        return prev.filter(id => id !== jobId);
+      } else {
+        return [...prev, jobId];
+      }
+    });
   };
 
   const getPlatformBadge = (id: string) => {
@@ -122,17 +148,16 @@ export default function Home() {
                   <button
                     key={skill}
                     onClick={() => {
-                      // 버튼 클릭 시 필터 변경과 개수 초기화를 동시에 처리합니다.
                       setSelectedSkill(skill);
                       setDisplayCount(20);
                     }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       selectedSkill === skill
-                        ? 'bg-blue-600 text-white'
+                        ? (skill === "Bookmark" ? 'bg-yellow-500 text-white border-yellow-500' : 'bg-blue-600 text-white')
                         : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    {skill === "All" ? "전체 보기" : skill}
+                    {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill}
                   </button>
                 ))}
               </div>
@@ -159,42 +184,55 @@ export default function Home() {
                   </div>
                 ))
               ) : visibleJobs.length > 0 ? (
-                visibleJobs.map((job) => (
-                  <a 
-                    key={job.id} 
-                    href={job.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block p-5 border border-gray-100 rounded-xl hover:bg-blue-50/30 hover:border-blue-200 transition-all group relative"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="pr-8">
-                        <div className="flex items-center gap-2 mb-1">
-                          {getPlatformBadge(job.id)}
-                          <p className="text-sm text-gray-500">{job.company}</p>
+                visibleJobs.map((job) => {
+                  const isBookmarked = bookmarkedJobs.includes(job.id);
+                  return (
+                    <a 
+                      key={job.id} 
+                      href={job.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block p-5 border border-gray-100 rounded-xl hover:bg-blue-50/30 hover:border-blue-200 transition-all group relative"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className="pr-12">
+                          <div className="flex items-center gap-2 mb-1">
+                            {getPlatformBadge(job.id)}
+                            <p className="text-sm text-gray-500">{job.company}</p>
+                          </div>
+                          <h3 className="font-bold text-gray-800 group-hover:text-blue-600 transition-colors text-base">
+                            {job.title}
+                          </h3>
                         </div>
-                        <h3 className="font-bold text-gray-800 group-hover:text-blue-600 transition-colors text-base">
-                          {job.title}
-                        </h3>
+                        <button
+                          onClick={(e) => toggleBookmark(e, job.id)}
+                          className={`absolute top-5 right-5 text-xl transition-colors ${
+                            isBookmarked ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                          }`}
+                          aria-label="북마크"
+                        >
+                          {isBookmarked ? '★' : '☆'}
+                        </button>
                       </div>
-                      <span className="text-gray-300 group-hover:text-blue-400 transition-transform group-hover:translate-x-1">
-                        →
-                      </span>
-                    </div>
-                    {job.skills && job.skills.length > 0 && (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {job.skills.map((skill, index) => (
-                          <span key={index} className="px-2.5 py-1 bg-white text-blue-600 text-[11px] rounded-md border border-blue-100 font-medium">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </a>
-                ))
+                      {job.skills && job.skills.length > 0 && (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {job.skills.map((skill, index) => (
+                            <span key={index} className="px-2.5 py-1 bg-white text-blue-600 text-[11px] rounded-md border border-blue-100 font-medium">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </a>
+                  );
+                })
               ) : (
                 <div className="text-center py-10">
-                  <p className="text-sm text-gray-400 italic">해당 기술 스택을 요구하는 공고가 없습니다.</p>
+                  <p className="text-sm text-gray-400 italic">
+                    {selectedSkill === "Bookmark" 
+                      ? "아직 찜한 공고가 없습니다. 별 모양 아이콘을 눌러 추가해보세요." 
+                      : "해당 기술 스택을 요구하는 공고가 없습니다."}
+                  </p>
                 </div>
               )}
             </div>
