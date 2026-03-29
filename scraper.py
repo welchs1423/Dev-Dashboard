@@ -125,21 +125,91 @@ def fetch_wanted_jobs():
         print(f"Wanted error: {e}")
         return []
 
+def fetch_festa_events():
+    url = "https://festa.io/api/v1/events?page=1&pageSize=20&order=startDate&excludeExternalEvents=false"
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        events = []
+        for item in data.get("rows", []):
+            host_info = item.get('hostOrganization', 'Festa')
+            if isinstance(host_info, dict):
+                host_name = host_info.get('name', 'Festa')
+            else:
+                host_name = host_info
+
+            events.append({
+                "id": f"festa_{item['eventId']}",
+                "title": item['name'],
+                "date": item['startDate'],
+                "host": host_name,
+                "url": f"https://festa.io/events/{item['eventId']}",
+                "type": "행사"
+            })
+        return events
+    except Exception as e:
+        print(f"Festa error: {e}")
+        return []
+
+def fetch_static_certs():
+    return [
+        {
+            "id": "cert_info_process_1",
+            "title": "2026년 정기 기사 1회 필기 (정보처리기사 등)",
+            "date": "2026-02-15T09:00:00Z",
+            "host": "Q-Net",
+            "url": "https://www.q-net.or.kr",
+            "type": "자격증"
+        },
+        {
+            "id": "cert_info_process_2",
+            "title": "2026년 정기 기사 1회 실기 (정보처리기사 등)",
+            "date": "2026-04-20T09:00:00Z",
+            "host": "Q-Net",
+            "url": "https://www.q-net.or.kr",
+            "type": "자격증"
+        },
+        {
+            "id": "cert_sqld_1",
+            "title": "2026년 제 52회 SQLD 자격검정",
+            "date": "2026-03-10T10:00:00Z",
+            "host": "한국데이터산업진흥원",
+            "url": "https://www.dataq.or.kr",
+            "type": "자격증"
+        },
+        {
+            "id": "cert_aws_1",
+            "title": "AWS Certified Solutions Architect",
+            "date": "2026-05-01T00:00:00Z",
+            "host": "AWS",
+            "url": "https://aws.amazon.com/ko/certification/",
+            "type": "자격증"
+        }
+    ]
+
 def main():
     jumpit_data = fetch_jumpit_jobs()
     saramin_data = fetch_saramin_jobs()
     wanted_data = fetch_wanted_jobs()
     
     all_jobs = jumpit_data + saramin_data + wanted_data
+    
+    it_events = fetch_festa_events()
+    certs = fetch_static_certs()
+    all_events = it_events + certs
 
     save_dir = "public"
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
-    file_path = os.path.join(save_dir, "jobs_data.json")
-
-    with open(file_path, "w", encoding="utf-8") as f:
+    jobs_file_path = os.path.join(save_dir, "jobs_data.json")
+    with open(jobs_file_path, "w", encoding="utf-8") as f:
         json.dump(all_jobs, f, ensure_ascii=False, indent=2)
+
+    events_file_path = os.path.join(save_dir, "events_data.json")
+    with open(events_file_path, "w", encoding="utf-8") as f:
+        json.dump(all_events, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
     main()

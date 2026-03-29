@@ -85,6 +85,7 @@ export default function TrendPage() {
             <nav className="flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
               <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">채용공고</Link>
               <Link href="/trend" className="hover:text-blue-600 dark:hover:text-blue-400 font-bold">기술트렌드</Link>
+              <Link href="/calendar" className="hover:text-blue-600 dark:hover:text-blue-400">IT 캘린더</Link>
             </nav>
             <button 
               onClick={toggleDarkMode} 
@@ -163,6 +164,10 @@ export default function TrendPage() {
         <Link href="/trend" className="flex flex-col items-center justify-center w-full h-full text-blue-600 dark:text-blue-400">
           <span className="text-xl mb-1">📈</span>
           <span className="text-[10px] font-medium">트렌드</span>
+        </Link>
+        <Link href="/calendar" className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">📅</span>
+          <span className="text-[10px] font-medium">캘린더</span>
         </Link>
         <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           <span className="text-xl mb-1">{isDarkMode ? '🌙' : '☀️'}</span>

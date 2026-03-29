@@ -403,6 +403,7 @@ export default function Home() {
             <nav className="flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
               <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 font-bold">채용공고</Link>
               <Link href="/trend" className="hover:text-blue-600 dark:hover:text-blue-400">기술트렌드</Link>
+              <Link href="/calendar" className="hover:text-blue-600 dark:hover:text-blue-400">IT 캘린더</Link>
             </nav>
             <button 
               onClick={toggleDarkMode} 
@@ -705,7 +706,10 @@ export default function Home() {
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
-            <h2 className="text-sm font-bold mb-4 text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 dark:border-blue-400 pl-2">IT 커리어 일정</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 dark:border-blue-400 pl-2">IT 커리어 일정</h2>
+              <Link href="/calendar" className="text-[10px] text-blue-500 hover:underline">전체보기</Link>
+            </div>
             <ul className="text-xs space-y-4 text-gray-600 dark:text-gray-400">
               <li className="flex gap-2 underline decoration-gray-100 dark:decoration-gray-700 underline-offset-4">• 정보처리기사 실기 시험 접수</li>
               <li className="flex gap-2 underline decoration-gray-100 dark:decoration-gray-700 underline-offset-4">• 상반기 주요 IT 기업 공채 시작</li>
@@ -750,6 +754,10 @@ export default function Home() {
         <Link href="/trend" className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           <span className="text-xl mb-1">📈</span>
           <span className="text-[10px] font-medium">트렌드</span>
+        </Link>
+        <Link href="/calendar" className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">📅</span>
+          <span className="text-[10px] font-medium">캘린더</span>
         </Link>
         <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           <span className="text-xl mb-1">{isDarkMode ? '🌙' : '☀️'}</span>
