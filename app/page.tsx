@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 interface Job {
@@ -25,6 +25,8 @@ export default function Home() {
   const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch('/jobs_data.json')
@@ -90,6 +92,28 @@ export default function Home() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setDisplayCount((prevCount) => prevCount + 20);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        observer.unobserve(loaderRef.current);
+      }
+    };
   }, []);
 
   const toggleDarkMode = () => {
@@ -161,10 +185,6 @@ export default function Home() {
 
   const visibleJobs = filteredJobs.slice(0, displayCount);
 
-  const handleLoadMore = () => {
-    setDisplayCount(prevCount => prevCount + 20);
-  };
-
   const toggleBookmark = (e: React.MouseEvent, jobId: string) => {
     e.preventDefault(); 
     e.stopPropagation();
@@ -230,16 +250,22 @@ export default function Home() {
     return null;
   };
 
-  const handleCustomSkillKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && currentInput.trim() !== '') {
-      e.preventDefault();
-      const newSkill = currentInput.trim();
+  const addCurrentSkill = () => {
+    const newSkill = currentInput.trim();
+    if (newSkill !== '') {
       if (!customSkills.includes(newSkill)) {
-        setCustomSkills([...customSkills, newSkill]);
+        setCustomSkills(prev => [...prev, newSkill]);
       }
       setCurrentInput("");
       setSelectedSkill("Custom");
       setDisplayCount(20);
+    }
+  };
+
+  const handleCustomSkillKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addCurrentSkill();
     } else if (e.key === 'Backspace' && currentInput === '' && customSkills.length > 0) {
       const newSkills = [...customSkills];
       newSkills.pop();
@@ -247,6 +273,10 @@ export default function Home() {
       if (newSkills.length === 0) setSelectedSkill("All");
       setDisplayCount(20);
     }
+  };
+
+  const handleCustomSkillBlur = () => {
+    addCurrentSkill();
   };
 
   const removeCustomSkill = (skillToRemove: string) => {
@@ -368,6 +398,7 @@ export default function Home() {
                     value={currentInput}
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyDown={handleCustomSkillKeyDown}
+                    onBlur={handleCustomSkillBlur}
                     onFocus={() => {
                       if (customSkills.length > 0) setSelectedSkill("Custom");
                     }}
@@ -474,13 +505,9 @@ export default function Home() {
             </div>
 
             {!isLoading && visibleJobs.length < filteredJobs.length && (
-              <div className="mt-8 text-center">
-                <button 
-                  onClick={handleLoadMore}
-                  className="px-6 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-full hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
-                >
-                  더 보기 ({visibleJobs.length} / {filteredJobs.length})
-                </button>
+              <div ref={loaderRef} className="py-8 text-center">
+                <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">다음 공고를 불러오는 중입니다...</p>
               </div>
             )}
           </section>
