@@ -150,11 +150,11 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-200">
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</h1>
+          <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</Link>
           <div className="flex items-center gap-6">
             <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
-              <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">채용공고</Link>
-              <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">기술트렌드</Link>
+              <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 font-bold">채용공고</Link>
+              <Link href="/trend" className="hover:text-blue-600 dark:hover:text-blue-400">기술트렌드</Link>
             </nav>
             <button 
               onClick={toggleDarkMode} 
