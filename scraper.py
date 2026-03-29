@@ -82,11 +82,50 @@ def fetch_saramin_jobs():
         print(f"Saramin error: {e}")
         return []
 
+def fetch_wanted_jobs():
+    url = "https://www.wanted.co.kr/api/v4/jobs"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    }
+    params = {
+        "country": "kr",
+        "tag_type_ids": "518",
+        "locations": "all",
+        "years": "0",
+        "limit": "20",
+        "offset": "0",
+        "job_sort": "job.latest_order"
+    }
+
+    try:
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        jobs = []
+        
+        for item in data.get("data", []):
+            job_id = item.get("id")
+            company_name = item.get("company", {}).get("name")
+            title = item.get("position")
+            
+            jobs.append({
+                "id": f"wanted_{job_id}",
+                "company": company_name,
+                "title": title,
+                "skills": [],
+                "url": f"https://www.wanted.co.kr/wd/{job_id}"
+            })
+        return jobs
+    except Exception as e:
+        print(f"Wanted error: {e}")
+        return []
+
 def main():
     jumpit_data = fetch_jumpit_jobs()
     saramin_data = fetch_saramin_jobs()
+    wanted_data = fetch_wanted_jobs()
     
-    all_jobs = jumpit_data + saramin_data
+    all_jobs = jumpit_data + saramin_data + wanted_data
 
     save_dir = "public"
     if not os.path.exists(save_dir):

@@ -43,6 +43,19 @@ export default function Home() {
     ? jobs 
     : jobs.filter(job => job.skills.includes(selectedSkill));
 
+  const getPlatformBadge = (id: string) => {
+    if (id.startsWith('jumpit')) {
+      return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-blue-100 text-blue-600">점핏</span>;
+    }
+    if (id.startsWith('saramin')) {
+      return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-green-100 text-green-600">사람인</span>;
+    }
+    if (id.startsWith('wanted')) {
+      return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-cyan-100 text-cyan-600">원티드</span>;
+    }
+    return null;
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans">
       <header className="bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-10">
@@ -83,7 +96,7 @@ export default function Home() {
           <section className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
             <div className="flex justify-between items-center mb-4 pb-2 border-b">
               <h2 className="text-lg font-bold text-gray-800">최신 신입 및 주니어 공고</h2>
-              <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">제공: 점핏, 사람인</span>
+              <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">제공: 점핏, 사람인, 원티드</span>
             </div>
             
             <div className="flex flex-wrap gap-2 mb-6">
@@ -115,9 +128,7 @@ export default function Home() {
                     <div className="flex justify-between items-start">
                       <div className="pr-8">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-[10px] px-2 py-0.5 rounded font-medium ${job.id.startsWith('jumpit') ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'}`}>
-                            {job.id.startsWith('jumpit') ? '점핏' : '사람인'}
-                          </span>
+                          {getPlatformBadge(job.id)}
                           <p className="text-sm text-gray-500">{job.company}</p>
                         </div>
                         <h3 className="font-bold text-gray-800 group-hover:text-blue-600 transition-colors text-base">
@@ -128,13 +139,15 @@ export default function Home() {
                         →
                       </span>
                     </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {job.skills.map((skill, index) => (
-                        <span key={index} className="px-2.5 py-1 bg-white text-blue-600 text-[11px] rounded-md border border-blue-100 font-medium">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                    {job.skills && job.skills.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {job.skills.map((skill, index) => (
+                          <span key={index} className="px-2.5 py-1 bg-white text-blue-600 text-[11px] rounded-md border border-blue-100 font-medium">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </a>
                 ))
               ) : (
@@ -168,7 +181,7 @@ export default function Home() {
             <div className="space-y-2">
               <p className="text-sm font-bold text-gray-400">© 2026 Dev Dashboard</p>
               <p className="text-[11px] text-gray-400 max-w-md leading-relaxed">
-                본 서비스는 점핏(Jumpit) 및 사람인(Saramin)의 공개 데이터를 활용하여 주니어 개발자의 커리어 성장을 돕기 위해 제작된 대시보드입니다. 
+                본 서비스는 점핏(Jumpit), 사람인(Saramin), 원티드(Wanted)의 공개 데이터를 활용하여 주니어 개발자의 커리어 성장을 돕기 위해 제작된 대시보드입니다. 
                 채용 정보의 저작권은 각 채용 공고의 원작자 및 해당 플랫폼에 있습니다.
               </p>
             </div>
