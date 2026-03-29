@@ -5,13 +5,16 @@
 ## ✨ 주요 기능
 
 - **실시간 채용 큐레이션**: 점핏(Jumpit), 사람인(Saramin), 원티드(Wanted) API를 활용한 최신 주니어 공고 수집
-- **기술 스택 분석 및 필터**: 공고별 필수 기술 스택(Skills) 시각화 및 버튼 클릭 필터링 지원
-- **완전 자동화**: GitHub Actions를 이용해 매일 정해진 시간에 데이터 자동 갱신
-- **반응형 디자인**: Tailwind CSS를 활용한 직관적인 대시보드 UI
+- **기술 트렌드 분석**: 수집된 데이터를 바탕으로 현재 시장에서 가장 수요가 높은 기술 스택 Top 15 시각화
+- **기술 스택 필터링**: 공고별 필수 기술 스택 시각화 및 클릭 한 번으로 원하는 기술 공고만 필터링
+- **개인화 및 편의 기능**:
+  - 텍스트 기반 공고 검색 및 브라우저 로컬스토리지 기반 찜하기(북마크)
+  - 개발자 선호 다크 모드(Dark Mode) 및 맨 위로 이동(Scroll to Top) 지원
+- **완전 자동화**: GitHub Actions를 이용해 매일 정해진 시간에 데이터 자동 갱신 및 Vercel 재배포
 
 ## 🛠 Tech Stack
 
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS v4
 - **Backend/Scraper**: Python 3.10 (Requests, BeautifulSoup4)
 - **Deployment**: Vercel
 - **Automation**: GitHub Actions
@@ -20,22 +23,20 @@
 
 1. **Scraping**: GitHub Actions가 `scraper.py` 실행하여 3사 플랫폼 데이터 수집
 2. **Commit**: 수집된 통합 데이터(`jobs_data.json`)를 GitHub 저장소에 자동 커밋 및 푸시
-3. **Deployment**: 데이터 변경을 감지한 Vercel이 즉시 웹사이트 재배포
-4. **Service**: 전 세계 어디서나 최신 채용 정보를 웹으로 확인
+3. **Deployment**: 데이터 변경을 감지한 Vercel이 최신 코드로 즉시 빌드 및 배포
+4. **Service**: 전 세계 어디서나 최신 채용 정보와 기술 트렌드를 웹으로 확인
 
 ## 📅 개발 일지
 
 - **2026-03-29**
-  - 공고 북마크(찜하기) 기능 및 로컬스토리지 연동
-  - 텍스트 기반 공고 검색 기능 추가
-  - 스크롤 탑(Scroll to Top) 기능 구현
-  - SEO 및 Open Graph 메타데이터 최적화
-  - 사람인(Saramin), 원티드(Wanted) 채용 공고 크롤러 추가 및 연동
-  - 프론트엔드 Client Component 전환 및 기술 스택 필터링 동적 기능 구현
-  - 플랫폼별 출처 배지(Badge) UI 추가
-  - 구글 애드센스(AdSense) 연동 및 개인정보처리방침, 이용약관 페이지 신설
-  - 점핏(Jumpit) API 크롤러 연동 및 GitHub Actions 자동화 파이프라인 구축
+  - 다크 모드(Dark Mode) 토글 기능 및 Tailwind v4 설정 최적화
+  - 기술 트렌드 통계 페이지(`/trend`) 신설 및 막대 그래프 시각화 구현
+  - 텍스트 기반 실시간 공고 검색 및 페이지네이션(더 보기) 기능 추가
+  - 브라우저 로컬스토리지를 활용한 북마크(찜하기) 시스템 구축
+  - SEO(검색 엔진 최적화) 및 Open Graph 메타데이터 설정 완료
+  - 점핏, 사람인, 원티드 3사 통합 크롤링 파이프라인 완성
   - Next.js 기반 기본 대시보드 UI 개발 및 Vercel 배포 완료
+  - GitHub Actions 자동화 워크플로우 구축
 
 ## ⚖️ 데이터 출처 및 저작권
 
