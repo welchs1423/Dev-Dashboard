@@ -14,11 +14,12 @@ interface Job {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
   const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
-  // 초기 데이터 페칭 및 로컬스토리지 북마크 불러오기
   useEffect(() => {
     fetch('/jobs_data.json')
       .then((res) => res.json())
@@ -33,14 +34,22 @@ export default function Home() {
 
     const savedBookmarks = localStorage.getItem('dev_dashboard_bookmarks');
     if (savedBookmarks) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBookmarkedJobs(JSON.parse(savedBookmarks));
     }
   }, []);
 
-  // 북마크 상태가 변경될 때마다 로컬스토리지에 저장
   useEffect(() => {
     localStorage.setItem('dev_dashboard_bookmarks', JSON.stringify(bookmarkedJobs));
   }, [bookmarkedJobs]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
@@ -62,9 +71,21 @@ export default function Home() {
   const filterOptions = ["All", "Bookmark", ...topSkills];
 
   const filteredJobs = jobs.filter(job => {
-    if (selectedSkill === "All") return true;
-    if (selectedSkill === "Bookmark") return bookmarkedJobs.includes(job.id);
-    return job.skills && job.skills.includes(selectedSkill);
+    let matchSkill = false;
+    if (selectedSkill === "All") {
+      matchSkill = true;
+    } else if (selectedSkill === "Bookmark") {
+      matchSkill = bookmarkedJobs.includes(job.id);
+    } else {
+      matchSkill = job.skills && job.skills.includes(selectedSkill);
+    }
+
+    const keyword = searchQuery.toLowerCase().trim();
+    const matchSearch = keyword === "" || 
+      job.company.toLowerCase().includes(keyword) || 
+      job.title.toLowerCase().includes(keyword);
+
+    return matchSkill && matchSearch;
   });
 
   const visibleJobs = filteredJobs.slice(0, displayCount);
@@ -86,6 +107,10 @@ export default function Home() {
     });
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const getPlatformBadge = (id: string) => {
     if (id.startsWith('jumpit')) {
       return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-blue-100 text-blue-600">점핏</span>;
@@ -100,7 +125,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans relative">
       <header className="bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold text-blue-600">Dev Dashboard</h1>
@@ -137,9 +162,26 @@ export default function Home() {
           </section>
 
           <section className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="flex justify-between items-center mb-4 pb-2 border-b">
-              <h2 className="text-lg font-bold text-gray-800">최신 신입 및 주니어 공고</h2>
-              <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">제공: 점핏, 사람인, 원티드</span>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-2 border-b gap-4">
+              <div>
+                <h2 className="text-lg font-bold text-gray-800">최신 신입 및 주니어 공고</h2>
+                <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded mt-1 inline-block">제공: 점핏, 사람인, 원티드</span>
+              </div>
+              
+              {!isLoading && (
+                <div className="w-full sm:w-64">
+                  <input
+                    type="text"
+                    placeholder="회사명, 공고 제목 검색..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setDisplayCount(20);
+                    }}
+                    className="w-full px-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
+              )}
             </div>
             
             {!isLoading && (
@@ -229,9 +271,7 @@ export default function Home() {
               ) : (
                 <div className="text-center py-10">
                   <p className="text-sm text-gray-400 italic">
-                    {selectedSkill === "Bookmark" 
-                      ? "아직 찜한 공고가 없습니다. 별 모양 아이콘을 눌러 추가해보세요." 
-                      : "해당 기술 스택을 요구하는 공고가 없습니다."}
+                    검색 조건에 맞는 공고가 없습니다.
                   </p>
                 </div>
               )}
@@ -283,6 +323,16 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 p-3 w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition-all z-50"
+          aria-label="맨 위로 이동"
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
