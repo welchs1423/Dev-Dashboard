@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import re
 from bs4 import BeautifulSoup
 
 def fetch_jumpit_jobs():
@@ -65,7 +66,16 @@ def fetch_saramin_jobs():
                 sector_elem = item.select_one('.job_sector')
                 skills = []
                 if sector_elem:
-                    skills = [s.strip() for s in sector_elem.text.strip().split(',') if s.strip()]
+                    # 쉼표로 구분된 텍스트 추출
+                    raw_skills = [s.strip() for s in sector_elem.text.strip().split(',') if s.strip()]
+                    for s in raw_skills:
+                        # 등록일, 수정일 및 날짜 패턴(00/00/00)이 포함된 텍스트 제외
+                        if "등록일" in s or "수정일" in s or re.search(r'\d{2}/\d{2}/\d{2}', s):
+                            continue
+                        # '외'로 끝나는 텍스트 제외 (예: '외 2건')
+                        if s.startswith("외"):
+                            continue
+                        skills.append(s)
                     skills = skills[:5]
 
                 jobs.append({
