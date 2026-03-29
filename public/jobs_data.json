@@ -1,20 +1,5 @@
 [
   {
-    "id": "jumpit_53459667",
-    "company": "오케스트로",
-    "title": "AI 모델러 경력 채용",
-    "skills": [
-      "Pandas",
-      "Python",
-      "PyTorch",
-      "scikit-learn",
-      "TensorFlow",
-      "Spark",
-      "AI/인공지능"
-    ],
-    "url": "https://www.jumpit.co.kr/position/53459667"
-  },
-  {
     "id": "jumpit_53342857",
     "company": "에프엘이에스",
     "title": "flutter 개발자 경력직 채용",
@@ -32,17 +17,19 @@
     "url": "https://www.jumpit.co.kr/position/53342857"
   },
   {
-    "id": "jumpit_53459647",
+    "id": "jumpit_53459667",
     "company": "오케스트로",
-    "title": "System Engineer (Data Command) 채용",
+    "title": "AI 모델러 경력 채용",
     "skills": [
-      "Azure DevOps",
-      "Kubernetes",
-      "Linux",
-      "Windows",
-      "OpenStack"
+      "Pandas",
+      "Python",
+      "PyTorch",
+      "scikit-learn",
+      "TensorFlow",
+      "Spark",
+      "AI/인공지능"
     ],
-    "url": "https://www.jumpit.co.kr/position/53459647"
+    "url": "https://www.jumpit.co.kr/position/53459667"
   },
   {
     "id": "jumpit_53446667",
@@ -72,6 +59,19 @@
     "url": "https://www.jumpit.co.kr/position/53330236"
   },
   {
+    "id": "jumpit_53459647",
+    "company": "오케스트로",
+    "title": "System Engineer (Data Command) 채용",
+    "skills": [
+      "Azure DevOps",
+      "Kubernetes",
+      "Linux",
+      "Windows",
+      "OpenStack"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53459647"
+  },
+  {
     "id": "jumpit_53459653",
     "company": "오케스트로",
     "title": "AI 제품 개발자 경력 채용",
@@ -93,6 +93,20 @@
       "Processing"
     ],
     "url": "https://www.jumpit.co.kr/position/53460216"
+  },
+  {
+    "id": "jumpit_53460385",
+    "company": "엑스페릭스",
+    "title": "USB Device SDK 개발_7년이상",
+    "skills": [
+      "C#",
+      "C++",
+      "Java",
+      "Linux",
+      "Windows",
+      "SW"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460385"
   },
   {
     "id": "jumpit_53448098",
@@ -123,20 +137,6 @@
       "Python"
     ],
     "url": "https://www.jumpit.co.kr/position/53448087"
-  },
-  {
-    "id": "jumpit_53460385",
-    "company": "엑스페릭스",
-    "title": "USB Device SDK 개발_7년이상",
-    "skills": [
-      "C#",
-      "C++",
-      "Java",
-      "Linux",
-      "Windows",
-      "SW"
-    ],
-    "url": "https://www.jumpit.co.kr/position/53460385"
   },
   {
     "id": "jumpit_53448079",
@@ -214,21 +214,21 @@
     "url": "https://www.jumpit.co.kr/position/53462836"
   },
   {
-    "id": "jumpit_53446561",
-    "company": "아인잡",
-    "title": "프론트엔드 개발자 (경력)",
+    "id": "jumpit_53446595",
+    "company": "씨어스테크놀로지",
+    "title": "PyQt GUI 개발자 채용",
     "skills": [
-      "CSS 3",
-      "GitHub",
+      "Git",
       "Jira",
-      "Next.js",
-      "React",
-      "Slack",
-      "TypeScript",
-      "Webpack",
-      "Notion"
+      "NumPy",
+      "Pandas",
+      "PyQt",
+      "Python",
+      "OpenGL",
+      "Notion",
+      "Matplotlib"
     ],
-    "url": "https://www.jumpit.co.kr/position/53446561"
+    "url": "https://www.jumpit.co.kr/position/53446595"
   },
   {
     "id": "saramin_53469141",
@@ -237,10 +237,9 @@
     "skills": [
       "의료기기연구",
       "AI(인공지능)",
-      "의료·보건",
-      "바이오 등록일 26/03/29"
+      "의료·보건"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53469141&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53469141&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53469042",
@@ -250,10 +249,9 @@
       "기술지원",
       "웹개발",
       "Java",
-      "Javascript",
-      "JSP 외                    등록일 26/03/29"
+      "Javascript"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53469042&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53469042&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468976",
@@ -263,10 +261,9 @@
       "펌웨어",
       "C++",
       "C언어",
-      "임베디드리눅스",
-      "하드웨어 외                    수정일 26/03/29"
+      "임베디드리눅스"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468976&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468976&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468975",
@@ -276,10 +273,9 @@
       "딥러닝",
       "알고리즘",
       "영상처리",
-      "임베디드",
-      "컴퓨터비전 외                    수정일 26/03/29"
+      "임베디드"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468975&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468975&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468974",
@@ -289,20 +285,18 @@
       "임베디드",
       "H/W",
       "회로설계",
-      "H/W",
-      "디버깅 외                    수정일 26/03/29"
+      "H/W"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468974&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468974&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468857",
     "company": "(주)유비소시어스",
     "title": "[콘텐츠 마케팅] 교육 플랫폼 전문기업, 콘텐츠 마케터 모집",
     "skills": [
-      "콘텐츠마케팅",
-      "사회교육 등록일 26/03/29"
+      "콘텐츠마케팅"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468857&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468857&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468844",
@@ -312,10 +306,9 @@
       "웹개발",
       "AWS",
       "Java",
-      "Node.js",
-      "스포츠 외                    등록일 26/03/29"
+      "Node.js"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468844&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468844&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468841",
@@ -324,10 +317,9 @@
     "skills": [
       "S/W",
       "C언어",
-      "임베디드리눅스",
-      "헤드헌팅 등록일 26/03/29"
+      "임베디드리눅스"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468841&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468841&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53468754",
@@ -337,10 +329,9 @@
       "머신러닝",
       "영상처리",
       "클라우드",
-      "AI(인공지능)",
-      "기계 수정일 26/03/28"
+      "AI(인공지능)"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468754&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53468754&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467955",
@@ -349,10 +340,9 @@
     "skills": [
       "앱개발",
       "웹개발",
-      "소비재",
-      "생활용품 등록일 26/03/28"
+      "소비재"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467955&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467955&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467911",
@@ -360,10 +350,9 @@
     "title": "모바일 App 서비스 운영자  모집( 소비재 제조기업 / 과장급 )",
     "skills": [
       "앱개발",
-      "웹개발",
-      "소비재 등록일 26/03/28"
+      "웹개발"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467911&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467911&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467800",
@@ -373,40 +362,36 @@
       "백엔드/서버개발",
       "웹개발",
       "정보보안",
-      "API",
-      "AWS 외                    등록일 26/03/28"
+      "API"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467800&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467800&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467666",
     "company": "(주)베스트에치알 (Best HR)",
     "title": "긴급ㅣICTㅣ플랫폼별 AI 기반 보안 솔루션 개발자 (주임-대리급)",
     "skills": [
-      "Windows",
-      "헤드헌팅 등록일 26/03/28"
+      "Windows"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467666&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467666&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467663",
     "company": "(주)베스트에치알 (Best HR)",
     "title": "ㅣICTㅣAI용 On-Device 소프트웨어 개발자 (과장-차장급)",
     "skills": [
-      "AI(인공지능)",
-      "헤드헌팅 등록일 26/03/28"
+      "AI(인공지능)"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467663&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467663&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467661",
     "company": "(주)베스트에치알 (Best HR)",
     "title": "ㅣICTㅣAI/ML 모델 연구/개발자 (주임-대리급)",
     "skills": [
-      "NLP(자연어처리)",
-      "헤드헌팅 등록일 26/03/28"
+      "NLP(자연어처리)"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467661&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467661&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467605",
@@ -416,10 +401,9 @@
       "공정설계",
       "생산설계",
       "솔리드웍스",
-      "AutoCAD",
-      "기계 수정일 26/03/28"
+      "AutoCAD"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467605&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467605&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467559",
@@ -427,10 +411,9 @@
     "title": "모션인식 모바일 앱개발자",
     "skills": [
       "게임개발",
-      "앱개발",
-      "교재제작·출판 수정일 26/03/28"
+      "앱개발"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467559&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467559&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467501",
@@ -440,10 +423,9 @@
       "기술영업",
       "영업관리",
       "영업직",
-      "IT영업",
-      "영업 외                    등록일 26/03/28"
+      "IT영업"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467501&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467501&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467465",
@@ -453,10 +435,9 @@
       "C#",
       "C++",
       "C언어",
-      "LabVIEW",
-      "Python 외                    수정일 26/03/29"
+      "LabVIEW"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467465&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467465&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467416",
@@ -465,10 +446,9 @@
     "skills": [
       "웹개발",
       "React",
-      "SI·시스템통합",
-      "소프트웨어개발 등록일 26/03/28"
+      "SI·시스템통합"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467416&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467416&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467343",
@@ -478,10 +458,9 @@
       "백엔드/서버개발",
       "웹개발",
       "유지보수",
-      "프론트엔드",
-      "Java 외                    수정일 26/03/28"
+      "프론트엔드"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467343&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467343&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467303",
@@ -491,10 +470,9 @@
       "C언어",
       "Python",
       "VB.NET",
-      "VisualBasic",
-      "기술엔지니어 외                    등록일 26/03/28"
+      "VisualBasic"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467303&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467303&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467253",
@@ -504,10 +482,9 @@
       "앱개발",
       "웹개발",
       "API",
-      "MFC",
-      "VisualC·C++ 외                    등록일 26/03/28"
+      "MFC"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467253&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467253&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467251",
@@ -517,10 +494,9 @@
       "앱개발",
       "Android",
       "Angular",
-      "C++",
-      "iOS 외                    등록일 26/03/28"
+      "C++"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467251&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467251&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467219",
@@ -530,10 +506,9 @@
       ".NET",
       "C#",
       "C++",
-      "C언어",
-      "Python 외                    등록일 26/03/28"
+      "C언어"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467219&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467219&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467207",
@@ -543,10 +518,9 @@
       "웹개발",
       "프론트엔드",
       "반응형웹",
-      "웹표준·웹접근성",
-      "Ajax 외                    등록일 26/03/28"
+      "웹표준·웹접근성"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467207&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467207&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467188",
@@ -554,40 +528,36 @@
     "title": "시니어 프로덕트 디자이너",
     "skills": [
       "UI/UX디자인",
-      "UI/UX",
-      "소프트웨어개발 등록일 26/03/28"
+      "UI/UX"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467188&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467188&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467058",
     "company": "헌터스그룹(주)",
     "title": "[서울성동구][대기업계열사] IT혁신팀 팀원 (2년차 ~5년차)",
     "skills": [
-      "IT컨설팅",
-      "교재제작·출판 등록일 26/03/28"
+      "IT컨설팅"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467058&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467058&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467025",
     "company": "(주)스카우트",
     "title": "[세계최고 탐지레이더기업] 웹 풀스택 개발 / 10년이상 (판교)",
     "skills": [
-      "웹개발",
-      "반도체 등록일 26/03/28"
+      "웹개발"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467025&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467025&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467018",
     "company": "(주)백그라운드",
     "title": "++블록체인 글로벌 기업++ 메인넷 개발",
     "skills": [
-      "블록체인",
-      "프랜차이즈 수정일 26/03/29"
+      "블록체인"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467018&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467018&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53467016",
@@ -595,10 +565,9 @@
     "title": "네트워크 제품 SW 개발자",
     "skills": [
       "네트워크",
-      "S/W",
-      "Hardware 등록일 26/03/28"
+      "S/W"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467016&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53467016&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466854",
@@ -608,10 +577,9 @@
       "SE(시스템엔지니어)",
       "네트워크",
       "솔루션",
-      "정보통신",
-      "펌웨어 외                    등록일 26/03/28"
+      "정보통신"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466854&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466854&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466844",
@@ -621,10 +589,9 @@
       "SE(시스템엔지니어)",
       "네트워크",
       "솔루션",
-      "정보통신",
-      "펌웨어 외                    등록일 26/03/28"
+      "정보통신"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466844&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466844&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466798",
@@ -634,10 +601,9 @@
       "SE(시스템엔지니어)",
       "네트워크",
       "솔루션",
-      "정보통신",
-      "펌웨어 외                    등록일 26/03/28"
+      "정보통신"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466798&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466798&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466757",
@@ -647,10 +613,9 @@
       "SE(시스템엔지니어)",
       "네트워크",
       "솔루션",
-      "정보통신",
-      "펌웨어 외                    등록일 26/03/28"
+      "정보통신"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466757&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466757&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466718",
@@ -660,10 +625,9 @@
       "웹개발",
       "유지보수",
       "Git",
-      "Java",
-      "Javascript 외                    등록일 26/03/28"
+      "Java"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466718&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466718&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466716",
@@ -673,10 +637,9 @@
       "프론트엔드",
       "크로스브라우징",
       "API",
-      "CSS",
-      "HTML 외                    등록일 26/03/28"
+      "CSS"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466716&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466716&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466672",
@@ -684,10 +647,9 @@
     "title": "원전) 시스템 엔지니어, SMR제어기 경력직",
     "skills": [
       "기술엔지니어",
-      "전기설계",
-      "자동제어 수정일 26/03/29"
+      "전기설계"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466672&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466672&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466537",
@@ -697,10 +659,9 @@
       "웹개발",
       "Git",
       "Java",
-      "Linux",
-      "Spring 외                    수정일 26/03/29"
+      "Linux"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466537&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466537&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "saramin_53466535",
@@ -710,10 +671,9 @@
       "백엔드/서버개발",
       "API",
       "Windows",
-      ".NET",
-      "C# 외                    수정일 26/03/29"
+      ".NET"
     ],
-    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466535&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=f3eafa07-e0e8-4a27-81fe-4be1919ffd7c"
+    "url": "https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53466535&location=ts&searchword=%EA%B0%9C%EB%B0%9C%EC%9E%90&searchType=search&paid_fl=n&search_uuid=da5e45f9-8b22-49f4-8fa9-c6ea87b60d5c"
   },
   {
     "id": "wanted_350980",

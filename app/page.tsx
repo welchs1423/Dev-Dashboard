@@ -18,6 +18,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
   const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
+  const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
@@ -38,6 +39,12 @@ export default function Home() {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setBookmarkedJobs(JSON.parse(savedBookmarks));
     }
+
+    const savedHidden = localStorage.getItem('dev_dashboard_hidden');
+    if (savedHidden) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHiddenCompanies(JSON.parse(savedHidden));
+    }
     
     const savedTheme = localStorage.getItem('dev_dashboard_theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -50,6 +57,10 @@ export default function Home() {
   useEffect(() => {
     localStorage.setItem('dev_dashboard_bookmarks', JSON.stringify(bookmarkedJobs));
   }, [bookmarkedJobs]);
+
+  useEffect(() => {
+    localStorage.setItem('dev_dashboard_hidden', JSON.stringify(hiddenCompanies));
+  }, [hiddenCompanies]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,9 +101,17 @@ export default function Home() {
   };
 
   const topSkills = getTopSkills();
-  const filterOptions = ["All", "Bookmark", ...topSkills];
+  const filterOptions = ["All", "Bookmark", "Hidden", ...topSkills];
 
   const filteredJobs = jobs.filter(job => {
+    if (selectedSkill === "Hidden") {
+      return hiddenCompanies.includes(job.company);
+    }
+
+    if (hiddenCompanies.includes(job.company)) {
+      return false;
+    }
+
     let matchSkill = false;
     if (selectedSkill === "All") {
       matchSkill = true;
@@ -125,6 +144,19 @@ export default function Home() {
         return prev.filter(id => id !== jobId);
       } else {
         return [...prev, jobId];
+      }
+    });
+  };
+
+  const toggleHiddenCompany = (e: React.MouseEvent, companyName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setHiddenCompanies(prev => {
+      if (prev.includes(companyName)) {
+        return prev.filter(name => name !== companyName);
+      } else {
+        return [...prev, companyName];
       }
     });
   };
@@ -225,11 +257,11 @@ export default function Home() {
                     }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       selectedSkill === skill
-                        ? (skill === "Bookmark" ? 'bg-yellow-500 text-white border-yellow-500' : 'bg-blue-600 text-white')
+                        ? (skill === "Bookmark" ? 'bg-yellow-500 text-white border-yellow-500' : skill === "Hidden" ? 'bg-red-500 text-white border-red-500' : 'bg-blue-600 text-white')
                         : 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
                     }`}
                   >
-                    {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill}
+                    {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill === "Hidden" ? "🚫 숨긴 기업" : skill}
                   </button>
                 ))}
               </div>
@@ -258,6 +290,8 @@ export default function Home() {
               ) : visibleJobs.length > 0 ? (
                 visibleJobs.map((job) => {
                   const isBookmarked = bookmarkedJobs.includes(job.id);
+                  const isHidden = hiddenCompanies.includes(job.company);
+                  
                   return (
                     <a 
                       key={job.id} 
@@ -267,7 +301,7 @@ export default function Home() {
                       className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800"
                     >
                       <div className="flex justify-between items-start">
-                        <div className="pr-12">
+                        <div className="pr-20">
                           <div className="flex items-center gap-2 mb-1">
                             {getPlatformBadge(job.id)}
                             <p className="text-sm text-gray-500 dark:text-gray-400">{job.company}</p>
@@ -276,14 +310,22 @@ export default function Home() {
                             {job.title}
                           </h3>
                         </div>
-                        <button
-                          onClick={(e) => toggleBookmark(e, job.id)}
-                          className={`absolute top-5 right-5 text-xl transition-colors ${
-                            isBookmarked ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400 dark:hover:text-yellow-400'
-                          }`}
-                        >
-                          {isBookmarked ? '★' : '☆'}
-                        </button>
+                        <div className="absolute top-5 right-5 flex gap-3">
+                          <button
+                            onClick={(e) => toggleHiddenCompany(e, job.company)}
+                            className="text-lg text-gray-300 dark:text-gray-600 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                          >
+                            {isHidden ? '복구' : '🚫'}
+                          </button>
+                          <button
+                            onClick={(e) => toggleBookmark(e, job.id)}
+                            className={`text-xl transition-colors ${
+                              isBookmarked ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400 dark:hover:text-yellow-400'
+                            }`}
+                          >
+                            {isBookmarked ? '★' : '☆'}
+                          </button>
+                        </div>
                       </div>
                       {job.skills && job.skills.length > 0 && (
                         <div className="mt-4 flex flex-wrap gap-2">
@@ -300,7 +342,9 @@ export default function Home() {
               ) : (
                 <div className="text-center py-10">
                   <p className="text-sm text-gray-400 dark:text-gray-500 italic">
-                    검색 조건에 맞는 공고가 없습니다.
+                    {selectedSkill === "Hidden" 
+                      ? "숨긴 기업이 없습니다." 
+                      : "검색 조건에 맞는 공고가 없습니다."}
                   </p>
                 </div>
               )}
