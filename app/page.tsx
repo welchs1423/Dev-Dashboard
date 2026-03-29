@@ -14,7 +14,10 @@ interface Job {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
-  const [customSkill, setCustomSkill] = useState<string>("");
+  
+  const [customSkills, setCustomSkills] = useState<string[]>([]);
+  const [currentInput, setCurrentInput] = useState<string>("");
+  
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
@@ -137,8 +140,13 @@ export default function Home() {
     } else if (selectedSkill === "Bookmark") {
       matchSkill = bookmarkedJobs.includes(job.id);
     } else if (selectedSkill === "Custom") {
-      const keyword = customSkill.toLowerCase().trim();
-      matchSkill = keyword === "" || (job.skills && job.skills.some(s => s.toLowerCase().includes(keyword)));
+      if (customSkills.length === 0) {
+        matchSkill = true;
+      } else {
+        matchSkill = customSkills.every(custom => 
+          job.skills && job.skills.some(s => s.toLowerCase().includes(custom.toLowerCase()))
+        );
+      }
     } else {
       matchSkill = job.skills && job.skills.includes(selectedSkill);
     }
@@ -222,6 +230,34 @@ export default function Home() {
     return null;
   };
 
+  const handleCustomSkillKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && currentInput.trim() !== '') {
+      e.preventDefault();
+      const newSkill = currentInput.trim();
+      if (!customSkills.includes(newSkill)) {
+        setCustomSkills([...customSkills, newSkill]);
+      }
+      setCurrentInput("");
+      setSelectedSkill("Custom");
+      setDisplayCount(20);
+    } else if (e.key === 'Backspace' && currentInput === '' && customSkills.length > 0) {
+      const newSkills = [...customSkills];
+      newSkills.pop();
+      setCustomSkills(newSkills);
+      if (newSkills.length === 0) setSelectedSkill("All");
+      setDisplayCount(20);
+    }
+  };
+
+  const removeCustomSkill = (skillToRemove: string) => {
+    const newSkills = customSkills.filter(skill => skill !== skillToRemove);
+    setCustomSkills(newSkills);
+    if (newSkills.length === 0 && selectedSkill === "Custom") {
+      setSelectedSkill("All");
+    }
+    setDisplayCount(20);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-200">
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
@@ -296,7 +332,6 @@ export default function Home() {
                   <button
                     key={skill}
                     onClick={() => {
-                      setCustomSkill(""); 
                       setSelectedSkill(skill);
                       setDisplayCount(20);
                     }}
@@ -310,24 +345,34 @@ export default function Home() {
                   </button>
                 ))}
                 
-                <div className="relative flex items-center ml-1">
+                <div className={`flex flex-wrap items-center gap-1.5 px-3 py-1.5 ml-1 rounded-full border transition-all ${
+                  selectedSkill === "Custom" || customSkills.length > 0
+                    ? 'bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700' 
+                    : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
+                }`}>
+                  {customSkills.map((skill, idx) => (
+                    <span key={idx} className="flex items-center gap-1 px-2 py-0.5 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 text-[11px] font-bold rounded-md">
+                      {skill}
+                      <button
+                        onClick={() => removeCustomSkill(skill)}
+                        className="hover:text-red-500 focus:outline-none flex items-center justify-center"
+                        title="태그 삭제"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
                   <input
                     type="text"
-                    placeholder="🔍 원하는 스택 직접 입력"
-                    value={customSkill}
-                    onChange={(e) => {
-                      setCustomSkill(e.target.value);
-                      if (e.target.value.trim() !== "") {
-                        setSelectedSkill("Custom");
-                      } else {
-                        setSelectedSkill("All");
-                      }
-                      setDisplayCount(20);
+                    placeholder={customSkills.length === 0 ? "🔍 다중 스택 입력 후 Enter" : "추가 스택..."}
+                    value={currentInput}
+                    onChange={(e) => setCurrentInput(e.target.value)}
+                    onKeyDown={handleCustomSkillKeyDown}
+                    onFocus={() => {
+                      if (customSkills.length > 0) setSelectedSkill("Custom");
                     }}
-                    className={`px-4 py-1.5 text-xs rounded-full border transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 w-44 focus:w-56 ${
-                      selectedSkill === "Custom"
-                        ? 'bg-blue-50 border-blue-300 text-blue-700 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300 placeholder-blue-300'
-                        : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 placeholder-gray-400'
+                    className={`bg-transparent text-xs text-gray-700 dark:text-gray-200 focus:outline-none placeholder-gray-400 transition-all ${
+                      customSkills.length === 0 ? 'w-40 focus:w-48' : 'w-24 focus:w-32'
                     }`}
                   />
                 </div>
