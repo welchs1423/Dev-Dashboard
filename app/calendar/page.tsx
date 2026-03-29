@@ -21,7 +21,7 @@ export default function CalendarPage() {
     fetch('/events_data.json')
       .then((res) => res.json())
       .then((data: CalendarEvent[]) => {
-        const sortedEvents = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        const sortedEvents = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         setEvents(sortedEvents);
         setIsLoading(false);
       })
@@ -89,54 +89,101 @@ export default function CalendarPage() {
         </div>
       </header>
 
-      <main className="grow max-w-4xl mx-auto px-6 py-12 w-full">
-        <section className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 dark:text-gray-100">IT 커리어 및 행사 일정</h2>
-          <p className="text-gray-600 dark:text-gray-400">주요 IT 컨퍼런스, 해커톤 및 자격증 시험 일정을 한눈에 확인하세요.</p>
-        </section>
+      <main className="grow max-w-7xl mx-auto px-6 py-12 w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="md:col-span-2 space-y-6">
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold mb-2 dark:text-gray-100">IT 커리어 및 행사 일정</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">진행 중이거나 예정된 IT 컨퍼런스 및 해커톤 일정을 최신순으로 보여줍니다.</p>
+          </section>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-8 transition-colors duration-200">
-          <div className="space-y-4">
-            {isLoading ? (
-              <p className="text-center text-gray-500">일정을 불러오는 중입니다.</p>
-            ) : events.length > 0 ? (
-              events.map(event => (
-                <a
-                  key={event.id}
-                  href={event.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all bg-white dark:bg-gray-800"
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`text-[10px] px-2 py-0.5 rounded font-medium ${
-                          event.type === '자격증' 
-                            ? 'bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300'
-                            : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300'
-                        }`}>
-                          {event.type}
-                        </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">{event.host}</span>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
+            <div className="space-y-4">
+              {isLoading ? (
+                <div className="py-10 text-center">
+                  <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+                </div>
+              ) : events.length > 0 ? (
+                events.map(event => (
+                  <a
+                    key={event.id}
+                    href={event.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all bg-white dark:bg-gray-800"
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">
+                            {event.type}
+                          </span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">{event.host}</span>
+                        </div>
+                        <h3 className="font-bold text-gray-800 dark:text-gray-100 text-base">
+                          {event.title}
+                        </h3>
                       </div>
-                      <h3 className="font-bold text-gray-800 dark:text-gray-100 text-base">
-                        {event.title}
-                      </h3>
+                      <div className="text-right ml-4 shrink-0">
+                        <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-full whitespace-nowrap">
+                          {formatDate(event.date)}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-full">
-                        {formatDate(event.date)}
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">등록된 일정이 없습니다.</p>
-            )}
+                  </a>
+                ))
+              ) : (
+                <p className="text-center text-gray-500 py-10">등록된 일정이 없습니다.</p>
+              )}
+            </div>
           </div>
         </div>
+
+        <aside className="space-y-6 mt-2 md:mt-0">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
+            <h2 className="text-sm font-bold mb-4 text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 dark:border-blue-400 pl-2">🌐 글로벌 자격증 (상시 접수)</h2>
+            <ul className="text-sm space-y-4 text-gray-600 dark:text-gray-400 font-medium">
+              <li>
+                <a href="https://aws.amazon.com/ko/certification/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline flex justify-between items-center group">
+                  <span>AWS Certified</span>
+                  <span className="text-gray-300 group-hover:text-blue-400 transition-colors">🔗</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://education.oracle.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline flex justify-between items-center group">
+                  <span>Oracle (Java OCP 등)</span>
+                  <span className="text-gray-300 group-hover:text-blue-400 transition-colors">🔗</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://cloud.google.com/learn/certification" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline flex justify-between items-center group">
+                  <span>Google Cloud (GCP)</span>
+                  <span className="text-gray-300 group-hover:text-blue-400 transition-colors">🔗</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://learn.microsoft.com/ko-kr/credentials/certifications/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline flex justify-between items-center group">
+                  <span>Microsoft Azure</span>
+                  <span className="text-gray-300 group-hover:text-blue-400 transition-colors">🔗</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline flex justify-between items-center group">
+                  <span>Kubernetes (CKA/CKS)</span>
+                  <span className="text-gray-300 group-hover:text-blue-400 transition-colors">🔗</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg shadow-sm border border-red-100 dark:border-red-800/50 p-6 transition-colors duration-200">
+            <h2 className="text-sm font-bold mb-3 text-red-800 dark:text-red-400 flex items-center gap-2">
+              <span>⚠️</span> 국내 자격증 조회 안내
+            </h2>
+            <p className="text-xs text-red-700/80 dark:text-red-300/80 leading-relaxed">
+              Q-Net(정보처리기사), Kdata(SQLD) 등 국내 주요 자격증 사이트는 강력한 봇 차단(CAPTCHA)이 적용되어 있어 <strong>자동 스크래핑이 불가능</strong>합니다. 정확한 시험 일정은 각 공식 홈페이지를 확인해 주시기 바랍니다.
+            </p>
+          </div>
+        </aside>
       </main>
 
       <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 pb-24 md:pb-10 transition-colors duration-200 w-full">

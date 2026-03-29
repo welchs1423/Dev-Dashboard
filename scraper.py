@@ -127,8 +127,12 @@ def fetch_wanted_jobs():
 
 def fetch_festa_events():
     url = "https://festa.io/api/v1/events?page=1&pageSize=20&order=startDate&excludeExternalEvents=false"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json"
+    }
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
         events = []
@@ -152,42 +156,6 @@ def fetch_festa_events():
         print(f"Festa error: {e}")
         return []
 
-def fetch_static_certs():
-    return [
-        {
-            "id": "cert_info_process_1",
-            "title": "2026년 정기 기사 1회 필기 (정보처리기사 등)",
-            "date": "2026-02-15T09:00:00Z",
-            "host": "Q-Net",
-            "url": "https://www.q-net.or.kr",
-            "type": "자격증"
-        },
-        {
-            "id": "cert_info_process_2",
-            "title": "2026년 정기 기사 1회 실기 (정보처리기사 등)",
-            "date": "2026-04-20T09:00:00Z",
-            "host": "Q-Net",
-            "url": "https://www.q-net.or.kr",
-            "type": "자격증"
-        },
-        {
-            "id": "cert_sqld_1",
-            "title": "2026년 제 52회 SQLD 자격검정",
-            "date": "2026-03-10T10:00:00Z",
-            "host": "한국데이터산업진흥원",
-            "url": "https://www.dataq.or.kr",
-            "type": "자격증"
-        },
-        {
-            "id": "cert_aws_1",
-            "title": "AWS Certified Solutions Architect",
-            "date": "2026-05-01T00:00:00Z",
-            "host": "AWS",
-            "url": "https://aws.amazon.com/ko/certification/",
-            "type": "자격증"
-        }
-    ]
-
 def main():
     jumpit_data = fetch_jumpit_jobs()
     saramin_data = fetch_saramin_jobs()
@@ -195,9 +163,8 @@ def main():
     
     all_jobs = jumpit_data + saramin_data + wanted_data
     
-    it_events = fetch_festa_events()
-    certs = fetch_static_certs()
-    all_events = it_events + certs
+    # 순수 IT 행사 크롤링 데이터만 사용 (거짓 자격증 데이터 제거)
+    all_events = fetch_festa_events()
 
     save_dir = "public"
     if not os.path.exists(save_dir):
