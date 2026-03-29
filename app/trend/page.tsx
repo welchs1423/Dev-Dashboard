@@ -26,7 +26,6 @@ export default function TrendPage() {
     fetch('/jobs_data.json')
       .then((res) => res.json())
       .then((data: Job[]) => {
-        // 메인과 동일하게 중복 제거 적용
         const uniqueJobs = data.filter((job, index, self) =>
           index === self.findIndex((t) => (
             t.company.trim() === job.company.trim() && t.title.trim() === job.title.trim()
@@ -53,13 +52,14 @@ export default function TrendPage() {
         setStats(sortedStats);
       });
 
-    // 다크 모드 초기화 로직
-    const savedTheme = localStorage.getItem('dev_dashboard_theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
+    setTimeout(() => {
+      const savedTheme = localStorage.getItem('dev_dashboard_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        setIsDarkMode(true);
+        document.documentElement.classList.add('dark');
+      }
+    }, 0);
   }, []);
 
   const toggleDarkMode = () => {
@@ -78,7 +78,6 @@ export default function TrendPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-200">
-      {/* 메인 페이지와 동일한 헤더 적용 */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</Link>
@@ -132,7 +131,6 @@ export default function TrendPage() {
         </div>
       </main>
 
-      {/* 메인 페이지와 동일한 푸터 적용 */}
       <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 transition-colors duration-200 w-full">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">

@@ -14,6 +14,7 @@ interface Job {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("All");
   
   const [customSkills, setCustomSkills] = useState<string[]>([]);
   const [currentInput, setCurrentInput] = useState<string>("");
@@ -149,6 +150,13 @@ export default function Home() {
   const topSkills = getTopSkills();
   const filterOptions = ["All", "Bookmark", "Hidden", ...topSkills];
 
+  const platformOptions = [
+    { id: "All", label: "전체 플랫폼" },
+    { id: "jumpit", label: "점핏" },
+    { id: "saramin", label: "사람인" },
+    { id: "wanted", label: "원티드" }
+  ];
+
   const filteredJobs = jobs.filter(job => {
     if (selectedSkill === "Hidden") {
       return hiddenCompanies.includes(job.company);
@@ -157,6 +165,8 @@ export default function Home() {
     if (hiddenCompanies.includes(job.company)) {
       return false;
     }
+
+    let matchPlatform = selectedPlatform === "All" || job.id.startsWith(selectedPlatform);
 
     let matchSkill = false;
     if (selectedSkill === "All") {
@@ -180,7 +190,7 @@ export default function Home() {
       job.company.toLowerCase().includes(keyword) || 
       job.title.toLowerCase().includes(keyword);
 
-    return matchSkill && matchSearch;
+    return matchSkill && matchSearch && matchPlatform;
   });
 
   const visibleJobs = filteredJobs.slice(0, displayCount);
@@ -334,10 +344,9 @@ export default function Home() {
           </section>
 
           <section className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-2 border-b dark:border-gray-700 gap-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 pb-2 border-b dark:border-gray-700 gap-4">
               <div>
                 <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">최신 채용 공고</h2>
-                <span className="text-[10px] text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700 px-2 py-1 rounded mt-1 inline-block">제공: 점핏, 사람인, 원티드</span>
               </div>
               
               {!isLoading && (
@@ -355,57 +364,75 @@ export default function Home() {
                 </div>
               )}
             </div>
-            
+
             {!isLoading && (
-              <div className="flex flex-wrap items-center gap-2 mb-6">
-                {filterOptions.map(skill => (
-                  <button
-                    key={skill}
-                    onClick={() => {
-                      setSelectedSkill(skill);
-                      setDisplayCount(20);
-                    }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                      selectedSkill === skill
-                        ? (skill === "Bookmark" ? 'bg-yellow-500 text-white border-yellow-500' : skill === "Hidden" ? 'bg-red-500 text-white border-red-500' : 'bg-blue-600 text-white')
-                        : 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill === "Hidden" ? "🚫 숨긴 기업" : skill}
-                  </button>
-                ))}
-                
-                <div className={`flex flex-wrap items-center gap-1.5 px-3 py-1.5 ml-1 rounded-full border transition-all ${
-                  selectedSkill === "Custom" || customSkills.length > 0
-                    ? 'bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700' 
-                    : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
-                }`}>
-                  {customSkills.map((skill, idx) => (
-                    <span key={idx} className="flex items-center gap-1 px-2 py-0.5 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 text-[11px] font-bold rounded-md">
-                      {skill}
-                      <button
-                        onClick={() => removeCustomSkill(skill)}
-                        className="hover:text-red-500 focus:outline-none flex items-center justify-center"
-                        title="태그 삭제"
-                      >
-                        ×
-                      </button>
-                    </span>
+              <div className="mb-6 space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  {platformOptions.map(p => (
+                    <button
+                      key={p.id}
+                      onClick={() => { setSelectedPlatform(p.id); setDisplayCount(20); }}
+                      className={`px-3 py-1 text-xs font-semibold rounded-md border transition-colors ${
+                        selectedPlatform === p.id
+                          ? 'bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 border-transparent'
+                          : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {p.label}
+                    </button>
                   ))}
-                  <input
-                    type="text"
-                    placeholder={customSkills.length === 0 ? "🔍 다중 스택 입력 후 Enter" : "추가 스택..."}
-                    value={currentInput}
-                    onChange={(e) => setCurrentInput(e.target.value)}
-                    onKeyDown={handleCustomSkillKeyDown}
-                    onBlur={handleCustomSkillBlur}
-                    onFocus={() => {
-                      if (customSkills.length > 0) setSelectedSkill("Custom");
-                    }}
-                    className={`bg-transparent text-xs text-gray-700 dark:text-gray-200 focus:outline-none placeholder-gray-400 transition-all ${
-                      customSkills.length === 0 ? 'w-40 focus:w-48' : 'w-24 focus:w-32'
-                    }`}
-                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  {filterOptions.map(skill => (
+                    <button
+                      key={skill}
+                      onClick={() => {
+                        setSelectedSkill(skill);
+                        setDisplayCount(20);
+                      }}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                        selectedSkill === skill
+                          ? (skill === "Bookmark" ? 'bg-yellow-500 text-white border-yellow-500' : skill === "Hidden" ? 'bg-red-500 text-white border-red-500' : 'bg-blue-600 text-white')
+                          : 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
+                      }`}
+                    >
+                      {skill === "All" ? "전체 보기" : skill === "Bookmark" ? "⭐ 찜한 공고" : skill === "Hidden" ? "🚫 숨긴 기업" : skill}
+                    </button>
+                  ))}
+                  
+                  <div className={`flex flex-wrap items-center gap-1.5 px-3 py-1.5 ml-1 rounded-full border transition-all ${
+                    selectedSkill === "Custom" || customSkills.length > 0
+                      ? 'bg-blue-50 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700' 
+                      : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
+                  }`}>
+                    {customSkills.map((skill, idx) => (
+                      <span key={idx} className="flex items-center gap-1 px-2 py-0.5 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 text-[11px] font-bold rounded-md">
+                        {skill}
+                        <button
+                          onClick={() => removeCustomSkill(skill)}
+                          className="hover:text-red-500 focus:outline-none flex items-center justify-center"
+                          title="태그 삭제"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                    <input
+                      type="text"
+                      placeholder={customSkills.length === 0 ? "🔍 다중 스택 입력 후 Enter" : "추가 스택..."}
+                      value={currentInput}
+                      onChange={(e) => setCurrentInput(e.target.value)}
+                      onKeyDown={handleCustomSkillKeyDown}
+                      onBlur={handleCustomSkillBlur}
+                      onFocus={() => {
+                        if (customSkills.length > 0) setSelectedSkill("Custom");
+                      }}
+                      className={`bg-transparent text-xs text-gray-700 dark:text-gray-200 focus:outline-none placeholder-gray-400 transition-all ${
+                        customSkills.length === 0 ? 'w-40 focus:w-48' : 'w-24 focus:w-32'
+                      }`}
+                    />
+                  </div>
                 </div>
               </div>
             )}
