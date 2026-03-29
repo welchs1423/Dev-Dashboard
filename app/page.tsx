@@ -15,6 +15,7 @@ export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [displayCount, setDisplayCount] = useState<number>(20);
 
   useEffect(() => {
     fetch('/jobs_data.json')
@@ -28,6 +29,11 @@ export default function Home() {
         setIsLoading(false);
       });
   }, []);
+
+  // 필터가 변경될 때마다 보여지는 개수를 20개로 초기화
+  useEffect(() => {
+    setDisplayCount(20);
+  }, [selectedSkill]);
 
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
@@ -51,6 +57,13 @@ export default function Home() {
   const filteredJobs = selectedSkill === "All" 
     ? jobs 
     : jobs.filter(job => job.skills && job.skills.includes(selectedSkill));
+
+  // 현재 화면에 보여줄 공고 데이터 자르기
+  const visibleJobs = filteredJobs.slice(0, displayCount);
+
+  const handleLoadMore = () => {
+    setDisplayCount(prevCount => prevCount + 20);
+  };
 
   const getPlatformBadge = (id: string) => {
     if (id.startsWith('jumpit')) {
@@ -146,8 +159,8 @@ export default function Home() {
                     </div>
                   </div>
                 ))
-              ) : filteredJobs.length > 0 ? (
-                filteredJobs.map((job) => (
+              ) : visibleJobs.length > 0 ? (
+                visibleJobs.map((job) => (
                   <a 
                     key={job.id} 
                     href={job.url} 
@@ -186,6 +199,18 @@ export default function Home() {
                 </div>
               )}
             </div>
+
+            {/* 더 보기 버튼 */}
+            {!isLoading && visibleJobs.length < filteredJobs.length && (
+              <div className="mt-8 text-center">
+                <button 
+                  onClick={handleLoadMore}
+                  className="px-6 py-2 bg-white border border-gray-300 text-gray-700 text-sm font-medium rounded-full hover:bg-gray-50 transition-colors shadow-sm"
+                >
+                  더 보기 ({visibleJobs.length} / {filteredJobs.length})
+                </button>
+              </div>
+            )}
           </section>
         </div>
 
