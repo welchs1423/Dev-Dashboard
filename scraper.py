@@ -43,7 +43,6 @@ def fetch_saramin_jobs():
     }
     params = {
         "searchword": "개발자",
-        "career_cd": "1,2", 
         "recruitPage": 1,
         "recruitSort": "reg_dt"
     }
@@ -66,13 +65,10 @@ def fetch_saramin_jobs():
                 sector_elem = item.select_one('.job_sector')
                 skills = []
                 if sector_elem:
-                    # 쉼표로 구분된 텍스트 추출
                     raw_skills = [s.strip() for s in sector_elem.text.strip().split(',') if s.strip()]
                     for s in raw_skills:
-                        # 등록일, 수정일 및 날짜 패턴(00/00/00)이 포함된 텍스트 제외
                         if "등록일" in s or "수정일" in s or re.search(r'\d{2}/\d{2}/\d{2}', s):
                             continue
-                        # '외'로 끝나는 텍스트 제외 (예: '외 2건')
                         if s.startswith("외"):
                             continue
                         skills.append(s)
@@ -101,7 +97,6 @@ def fetch_wanted_jobs():
         "country": "kr",
         "tag_type_ids": "518",
         "locations": "all",
-        "years": "0",
         "limit": "20",
         "offset": "0",
         "job_sort": "job.latest_order"

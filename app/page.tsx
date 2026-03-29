@@ -36,13 +36,11 @@ export default function Home() {
 
     const savedBookmarks = localStorage.getItem('dev_dashboard_bookmarks');
     if (savedBookmarks) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBookmarkedJobs(JSON.parse(savedBookmarks));
     }
 
     const savedHidden = localStorage.getItem('dev_dashboard_hidden');
     if (savedHidden) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHiddenCompanies(JSON.parse(savedHidden));
     }
     
@@ -201,14 +199,14 @@ export default function Home() {
       <main className="grow max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
           <section className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 leading-relaxed transition-colors duration-200">
-            <h2 className="text-lg font-bold mb-3 text-gray-800 dark:text-gray-100">주니어 개발자를 위한 맞춤형 커리어 대시보드</h2>
+            <h2 className="text-lg font-bold mb-3 text-gray-800 dark:text-gray-100">모든 개발자를 위한 맞춤형 커리어 대시보드</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-              Dev Dashboard는 실시간 채용 데이터를 분석하여 주니어 개발자들에게 꼭 필요한 정보를 선별해 드립니다. 
+              Dev Dashboard는 실시간 채용 데이터를 분석하여 개발자들에게 꼭 필요한 정보를 선별해 드립니다. 
               단순히 공고를 나열하는 것을 넘어, 현재 시장에서 요구하는 핵심 기술 스택의 변화를 추적합니다.
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              성공적인 커리어의 시작을 위해 매일 아침 업데이트되는 공고 리스트를 확인하고, 본인에게 가장 적합한 포지션을 찾아보세요. 
-              기술 스택 기반 필터링을 통해 효율적인 취업 준비를 도와드립니다.
+              성공적인 커리어 관리를 위해 매일 아침 업데이트되는 공고 리스트를 확인하고, 본인에게 가장 적합한 포지션을 찾아보세요. 
+              기술 스택 기반 필터링을 통해 효율적인 이직 및 취업 준비를 도와드립니다.
             </p>
           </section>
 
@@ -226,7 +224,7 @@ export default function Home() {
           <section className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-2 border-b dark:border-gray-700 gap-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">최신 신입 및 주니어 공고</h2>
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">최신 채용 공고</h2>
                 <span className="text-[10px] text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-700 px-2 py-1 rounded mt-1 inline-block">제공: 점핏, 사람인, 원티드</span>
               </div>
               
@@ -385,7 +383,7 @@ export default function Home() {
             <div className="space-y-2">
               <p className="text-sm font-bold text-gray-400 dark:text-gray-500">© 2026 Dev Dashboard</p>
               <p className="text-[11px] text-gray-400 dark:text-gray-500 max-w-md leading-relaxed">
-                본 서비스는 점핏(Jumpit), 사람인(Saramin), 원티드(Wanted)의 공개 데이터를 활용하여 주니어 개발자의 커리어 성장을 돕기 위해 제작된 대시보드입니다. 
+                본 서비스는 점핏(Jumpit), 사람인(Saramin), 원티드(Wanted)의 공개 데이터를 활용하여 모든 개발자의 커리어 성장을 돕기 위해 제작된 대시보드입니다. 
                 채용 정보의 저작권은 각 채용 공고의 원작자 및 해당 플랫폼에 있습니다.
               </p>
             </div>
