@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsTicker from '../components/NewsTicker';
@@ -170,7 +169,6 @@ export default function Home() {
         <aside className="space-y-6">
           <div className="bg-gray-100 dark:bg-gray-800 h-64 rounded-xl flex items-center justify-center text-gray-400 text-xs border-2 border-dashed border-gray-200 dark:border-gray-700">AdSense 광고 영역</div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-            <div className="flex justify-between items-center mb-4"><h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 pl-2">IT 커리어 일정</h2><Link href="/calendar" className="text-[10px] text-blue-500 hover:underline">전체보기</Link></div>
             <ul className="text-xs space-y-4 text-gray-600 dark:text-gray-400"><li className="flex gap-2 underline underline-offset-4">• 정보처리기사 실기 시험 접수</li><li className="flex gap-2 underline underline-offset-4">• 상반기 주요 IT 기업 공채 시작</li><li className="flex gap-2 underline underline-offset-4">• 부트캠프 및 교육생 모집 소식</li></ul>
           </div>
         </aside>

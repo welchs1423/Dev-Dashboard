@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "title": "Harness — Claude Code 에이전트 팀 & 스킬 아키텍트 플러그인",
+    "url": "https://github.com/revfactory/harness"
+  },
+  {
+    "title": "CPython 3.15의 JIT, 다시 궤도에 오르다",
+    "url": "https://blog.python.org/2026/03/jit-on-track/"
+  },
+  {
+    "title": "Codex 활용 사례 모음",
+    "url": "https://developers.openai.com/codex/use-cases"
+  },
+  {
+    "title": ".claude/ 폴더 구조 분석",
+    "url": "https://blog.dailydoseofds.com/p/anatomy-of-the-claude-folder"
+  },
+  {
+    "title": "GitLab 공동창업자, 파운더 모드로 직접 자신의 암 치료를 설계하다",
+    "url": "https://sytse.com/cancer/"
+  },
+  {
+    "title": "삶을 더 편하게 만드는 Shell 트릭",
+    "url": "https://blog.hofstede.it/shell-tricks-that-actually-make-life-easier-and-save-your-sanity/"
+  },
+  {
+    "title": "하루에 코딩은 4시간이 한계인 이유",
+    "url": "https://newsletter.techworld-with-milan.com/p/you-can-code-only-4-hours-per-day"
+  },
+  {
+    "title": "Show GN: looprinter - 잘 깎은 스킬 하나와 루프 스크립트 하나. 그리고 무엇까지 만들었는지.",
+    "url": "https://news.hada.iotopic?id=27980"
+  },
+  {
+    "title": "Show GN: 어떤 바이브코딩툴 쓰시는지 보는 대시보드",
+    "url": "https://news.hada.iotopic?id=27975"
+  },
+  {
+    "title": "OpenUI - 생성형 UI를 위한 오픈 표준 프레임워크",
+    "url": "https://github.com/thesysdev/openui"
+  },
+  {
+    "title": "Show GN: 인터렉티브 푸시 알림 서비스 - torchi",
+    "url": "https://news.hada.iotopic?id=27978"
+  },
+  {
+    "title": "장기 실행 애플리케이션 개발을 위한 하네스 설계",
+    "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps"
+  },
+  {
+    "title": "Show GN: ClaudeCodeMultiAccounts : 클로드 코드 다중 계정 스위칭용 스크립트",
+    "url": "https://news.hada.iotopic?id=27973"
+  },
+  {
+    "title": "소프트웨어에 남은 길은 두 가지뿐",
+    "url": "https://www.a16z.news/p/there-are-only-two-paths-left-for"
+  },
+  {
+    "title": "Show GN: 이젠 한국도 안전하지 않습니다, 실시간 전세계 분쟁 모니터링 서비스를 만들었습니다.",
+    "url": "https://news.hada.iotopic?id=27977"
+  }
+]

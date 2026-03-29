@@ -42,9 +42,13 @@ export default function StatsSummary({ jobs, topSkills }: StatsSummaryProps) {
 
       <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-center">
         <span className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-2">실시간 Top 3 스택</span>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {topSkills.slice(0, 3).map((skill, idx) => (
-            <span key={skill} className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-bold rounded-md border border-gray-200 dark:border-gray-600 flex-1 text-center truncate">
+            <span 
+              key={skill} 
+              title={skill} 
+              className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-bold rounded-md border border-gray-200 dark:border-gray-600 truncate max-w-full cursor-help hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+            >
               {idx + 1}. {skill}
             </span>
           ))}

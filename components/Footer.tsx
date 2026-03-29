@@ -40,9 +40,6 @@ export default function Footer() {
         <Link href="/trend" className={`flex flex-col items-center justify-center w-full h-full ${pathname === '/trend' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}>
           <span className="text-xl mb-1">📈</span><span className="text-[10px] font-medium">트렌드</span>
         </Link>
-        <Link href="/calendar" className={`flex flex-col items-center justify-center w-full h-full ${pathname === '/calendar' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}>
-          <span className="text-xl mb-1">📅</span><span className="text-[10px] font-medium">캘린더</span>
-        </Link>
         <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-blue-600">
           <span className="text-xl mb-1">{isDarkMode ? '🌙' : '☀️'}</span><span className="text-[10px] font-medium">테마</span>
         </button>

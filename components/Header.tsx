@@ -36,8 +36,7 @@ export default function Header() {
 
   const navLinks = [
     { href: '/', label: '채용공고' },
-    { href: '/trend', label: '기술트렌드' },
-    { href: '/calendar', label: 'IT 캘린더' }
+    { href: '/trend', label: '기술트렌드' }
   ];
 
   return (
