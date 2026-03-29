@@ -18,8 +18,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5892430194201904"
-        crossOrigin="anonymous"></script>
+        {/* 소문자 script가 아닌 Next.js 전용 대문자 Script 컴포넌트 사용 */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-OOOOOOOOOOOOOOOO"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
