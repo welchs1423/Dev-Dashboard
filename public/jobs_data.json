@@ -1,5 +1,20 @@
 [
   {
+    "id": 53459667,
+    "company": "오케스트로",
+    "title": "AI 모델러 경력 채용",
+    "skills": [
+      "Pandas",
+      "Python",
+      "PyTorch",
+      "scikit-learn",
+      "TensorFlow",
+      "Spark",
+      "AI/인공지능"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53459667"
+  },
+  {
     "id": 53342857,
     "company": "에프엘이에스",
     "title": "flutter 개발자 경력직 채용",
@@ -13,21 +28,8 @@
       "Node.js",
       "Auth0",
       "Firebase Hosting"
-    ]
-  },
-  {
-    "id": 53459667,
-    "company": "오케스트로",
-    "title": "AI 모델러 경력 채용",
-    "skills": [
-      "Pandas",
-      "Python",
-      "PyTorch",
-      "scikit-learn",
-      "TensorFlow",
-      "Spark",
-      "AI/인공지능"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53342857"
   },
   {
     "id": 53330236,
@@ -43,7 +45,8 @@
       "Node.js",
       "Auth0",
       "Firebase Hosting"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53330236"
   },
   {
     "id": 53446667,
@@ -52,7 +55,8 @@
     "skills": [
       "Embedded",
       "FPGA"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53446667"
   },
   {
     "id": 53459647,
@@ -64,7 +68,8 @@
       "Linux",
       "Windows",
       "OpenStack"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53459647"
   },
   {
     "id": 53459653,
@@ -77,7 +82,8 @@
       "PyTorch",
       "TensorFlow",
       "AI/인공지능"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53459653"
   },
   {
     "id": 53460216,
@@ -85,34 +91,8 @@
     "title": "풀스택 개발자 엔지니어",
     "skills": [
       "Processing"
-    ]
-  },
-  {
-    "id": 53448098,
-    "company": "크레셈",
-    "title": "SMART AI (C#, WPF) 개발 엔지니어 모집",
-    "skills": [
-      ".NET",
-      "Entity Framework",
-      "Git",
-      "Microsoft SQL Server",
-      "Oracle",
-      "Visual Studio",
-      "Windows"
-    ]
-  },
-  {
-    "id": 53460385,
-    "company": "엑스페릭스",
-    "title": "USB Device SDK 개발_7년이상",
-    "skills": [
-      "C#",
-      "C++",
-      "Java",
-      "Linux",
-      "Windows",
-      "SW"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460216"
   },
   {
     "id": 53448087,
@@ -126,7 +106,47 @@
       "MSSQL",
       "MySQL",
       "Python"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53448087"
+  },
+  {
+    "id": 53460385,
+    "company": "엑스페릭스",
+    "title": "USB Device SDK 개발_7년이상",
+    "skills": [
+      "C#",
+      "C++",
+      "Java",
+      "Linux",
+      "Windows",
+      "SW"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460385"
+  },
+  {
+    "id": 53448098,
+    "company": "크레셈",
+    "title": "SMART AI (C#, WPF) 개발 엔지니어 모집",
+    "skills": [
+      ".NET",
+      "Entity Framework",
+      "Git",
+      "Microsoft SQL Server",
+      "Oracle",
+      "Visual Studio",
+      "Windows"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53448098"
+  },
+  {
+    "id": 53448079,
+    "company": "크레셈",
+    "title": "제어기술팀 SW개발 경력 채용",
+    "skills": [
+      "C#",
+      "Visual Studio"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53448079"
   },
   {
     "id": 53460374,
@@ -139,48 +159,8 @@
       "Linux",
       "Windows",
       "SW"
-    ]
-  },
-  {
-    "id": 53448079,
-    "company": "크레셈",
-    "title": "제어기술팀 SW개발 경력 채용",
-    "skills": [
-      "C#",
-      "Visual Studio"
-    ]
-  },
-  {
-    "id": 53460446,
-    "company": "엠투피아이",
-    "title": "PHP 웹개발자 채용(경력3~5년)",
-    "skills": [
-      "Apache Tomcat",
-      "CSS 3",
-      "JavaScript",
-      "jQuery",
-      "Laravel",
-      "Linux",
-      "MySQL",
-      "PHP",
-      "XML"
-    ]
-  },
-  {
-    "id": 53460450,
-    "company": "엠투피아이",
-    "title": "PHP 웹개발자 채용(경력6~8년)",
-    "skills": [
-      "Apache Tomcat",
-      "CSS 3",
-      "JavaScript",
-      "jQuery",
-      "Laravel",
-      "Linux",
-      "MySQL",
-      "PHP",
-      "XML"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460374"
   },
   {
     "id": 53462836,
@@ -196,7 +176,42 @@
       "Kubernetes",
       "Terraform",
       "AWS"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53462836"
+  },
+  {
+    "id": 53460446,
+    "company": "엠투피아이",
+    "title": "PHP 웹개발자 채용(경력3~5년)",
+    "skills": [
+      "Apache Tomcat",
+      "CSS 3",
+      "JavaScript",
+      "jQuery",
+      "Laravel",
+      "Linux",
+      "MySQL",
+      "PHP",
+      "XML"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460446"
+  },
+  {
+    "id": 53460450,
+    "company": "엠투피아이",
+    "title": "PHP 웹개발자 채용(경력6~8년)",
+    "skills": [
+      "Apache Tomcat",
+      "CSS 3",
+      "JavaScript",
+      "jQuery",
+      "Laravel",
+      "Linux",
+      "MySQL",
+      "PHP",
+      "XML"
+    ],
+    "url": "https://www.jumpit.co.kr/position/53460450"
   },
   {
     "id": 53446561,
@@ -212,6 +227,7 @@
       "TypeScript",
       "Webpack",
       "Notion"
-    ]
+    ],
+    "url": "https://www.jumpit.co.kr/position/53446561"
   }
 ]
