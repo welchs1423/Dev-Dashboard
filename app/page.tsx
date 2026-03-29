@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import NewsTicker from '@/components/NewsTicker';
+import JobCard from '@/components/JobCard';
 
 interface Job {
   id: string;
@@ -19,7 +21,6 @@ interface NewsItem {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
-  const [currentNewsIndex, setCurrentNewsIndex] = useState<number>(0);
   
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
   const [selectedPlatform, setSelectedPlatform] = useState<string>("All");
@@ -28,6 +29,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [displayCount, setDisplayCount] = useState<number>(20);
+  
   const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
   const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
   const [memos, setMemos] = useState<Record<string, string>>({});
@@ -49,6 +51,7 @@ export default function Home() {
         const jumpit = uniqueJobs.filter(j => j.id.startsWith('jumpit'));
         const saramin = uniqueJobs.filter(j => j.id.startsWith('saramin'));
         const wanted = uniqueJobs.filter(j => j.id.startsWith('wanted'));
+        
         const mixedJobs: Job[] = [];
         const maxLength = Math.max(jumpit.length, saramin.length, wanted.length);
         for (let i = 0; i < maxLength; i++) {
@@ -125,14 +128,6 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  useEffect(() => {
-    if (news.length === 0) return;
-    const interval = setInterval(() => {
-      setCurrentNewsIndex((prev) => (prev + 1) % news.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [news.length]);
-
   const toggleDarkMode = () => {
     setIsDarkMode(prev => {
       const newTheme = !prev;
@@ -199,7 +194,7 @@ export default function Home() {
         await navigator.clipboard.writeText(job.url);
         alert('링크가 복사되었습니다.');
       }
-    } catch (err) {}
+    } catch {}
   };
 
   const handleMemo = (e: React.MouseEvent, jobId: string) => {
@@ -216,13 +211,6 @@ export default function Home() {
   };
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  const getPlatformBadge = (id: string) => {
-    if (id.startsWith('jumpit')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">점핏</span>;
-    if (id.startsWith('saramin')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">사람인</span>;
-    if (id.startsWith('wanted')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-cyan-100 text-cyan-600 dark:bg-cyan-900 dark:text-cyan-300">원티드</span>;
-    return null;
-  };
 
   const addCurrentSkill = () => {
     const newSkill = currentInput.trim();
@@ -258,19 +246,10 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="grow max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <main className="grow max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
         <div className="md:col-span-2 space-y-6">
           
-          {news.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center overflow-hidden">
-              <span className="text-xs font-bold text-white bg-blue-600 px-2 py-1 rounded mr-3 shrink-0">IT 뉴스</span>
-              <div className="flex-1 truncate">
-                <a href={news[currentNewsIndex].url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300">
-                  {news[currentNewsIndex].title}
-                </a>
-              </div>
-            </div>
-          )}
+          <NewsTicker news={news} />
 
           <section className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 pb-2 border-b dark:border-gray-700 gap-4">
@@ -352,46 +331,19 @@ export default function Home() {
                   </div>
                 ))
               ) : visibleJobs.length > 0 ? (
-                visibleJobs.map((job) => {
-                  const isBookmarked = bookmarkedJobs.includes(job.id);
-                  const isHidden = hiddenCompanies.includes(job.company);
-                  
-                  return (
-                    <div key={job.id} className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800 cursor-pointer" onClick={() => window.open(job.url, '_blank')}>
-                      <div className="flex justify-between items-start">
-                        <div className="pr-40">
-                          <div className="flex items-center gap-3 mb-2">
-                            {getPlatformBadge(job.id)}
-                            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{job.company}</p>
-                            <div className="flex gap-1.5 ml-1">
-                              <a href={`https://www.jobplanet.co.kr/search?query=${encodeURIComponent(job.company)}`} target="_blank" rel="noopener noreferrer" className="text-[10px] px-2 py-0.5 bg-[#00c362] text-white rounded font-bold hover:bg-[#00a854] transition-colors" onClick={(e) => e.stopPropagation()}>잡플래닛</a>
-                              <a href={`https://www.teamblind.com/kr/company/${encodeURIComponent(job.company)}`} target="_blank" rel="noopener noreferrer" className="text-[10px] px-2 py-0.5 bg-[#37abc8] text-white rounded font-bold hover:bg-[#2f92ab] transition-colors" onClick={(e) => e.stopPropagation()}>블라인드</a>
-                            </div>
-                          </div>
-                          <h3 className="font-bold text-gray-800 dark:text-gray-100 group-hover:text-blue-600 transition-colors text-base">{job.title}</h3>
-                        </div>
-                        <div className="absolute top-4 right-4 flex gap-1">
-                          <button onClick={(e) => handleMemo(e, job.id)} className={`p-1.5 rounded-full transition-all ${memos[job.id] ? 'text-blue-500 bg-blue-50' : 'text-gray-400 hover:text-blue-500 hover:bg-blue-50'}`}>📝</button>
-                          <button onClick={(e) => handleShare(e, job)} className="p-1.5 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-50">🔗</button>
-                          <button onClick={(e) => toggleHiddenCompany(e, job.company)} className="p-1.5 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50">{isHidden ? '복구' : '🚫'}</button>
-                          <button onClick={(e) => toggleBookmark(e, job.id)} className={`p-1.5 rounded-full ${isBookmarked ? 'text-yellow-400' : 'text-gray-400 hover:text-yellow-500'}`}>{isBookmarked ? '★' : '☆'}</button>
-                        </div>
-                      </div>
-                      
-                      {job.skills && job.skills.length > 0 && (
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {job.skills.map((skill, index) => <span key={index} className="px-2.5 py-1 bg-white dark:bg-gray-700 text-blue-600 text-[11px] rounded-md border border-blue-100 dark:border-gray-600 font-medium">{skill}</span>)}
-                        </div>
-                      )}
-
-                      {memos[job.id] && (
-                        <div className="mt-3 p-3 bg-yellow-50 text-yellow-800 text-xs rounded-lg border border-yellow-200" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex items-start gap-2"><span className="mt-0.5">📌</span><p className="whitespace-pre-wrap flex-1">{memos[job.id]}</p></div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
+                visibleJobs.map((job) => (
+                  <JobCard
+                    key={job.id}
+                    job={job}
+                    isBookmarked={bookmarkedJobs.includes(job.id)}
+                    isHidden={hiddenCompanies.includes(job.company)}
+                    memo={memos[job.id]}
+                    onBookmark={toggleBookmark}
+                    onHide={toggleHiddenCompany}
+                    onMemo={handleMemo}
+                    onShare={handleShare}
+                  />
+                ))
               ) : (
                 <div className="text-center py-10"><p className="text-sm text-gray-400">검색 조건에 맞는 공고가 없습니다.</p></div>
               )}
@@ -423,7 +375,7 @@ export default function Home() {
         </aside>
       </main>
 
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 pb-24 md:pb-10 transition-colors duration-200">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 pb-24 md:pb-10 transition-colors duration-200 w-full">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-sm font-bold text-gray-400">© 2026 Dev Dashboard</p>
         </div>
