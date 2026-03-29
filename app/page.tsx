@@ -24,6 +24,7 @@ export default function Home() {
   const [displayCount, setDisplayCount] = useState<number>(20);
   const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
   const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
+  const [memos, setMemos] = useState<Record<string, string>>({});
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
@@ -71,6 +72,11 @@ export default function Home() {
       if (savedHidden) {
         setHiddenCompanies(JSON.parse(savedHidden));
       }
+
+      const savedMemos = localStorage.getItem('dev_dashboard_memos');
+      if (savedMemos) {
+        setMemos(JSON.parse(savedMemos));
+      }
       
       const savedTheme = localStorage.getItem('dev_dashboard_theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -88,6 +94,10 @@ export default function Home() {
   useEffect(() => {
     localStorage.setItem('dev_dashboard_hidden', JSON.stringify(hiddenCompanies));
   }, [hiddenCompanies]);
+
+  useEffect(() => {
+    localStorage.setItem('dev_dashboard_memos', JSON.stringify(memos));
+  }, [memos]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -262,6 +272,26 @@ export default function Home() {
     }
   };
 
+  const handleMemo = (e: React.MouseEvent, jobId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const existingMemo = memos[jobId] || "";
+    const newMemo = window.prompt("이 공고에 대한 메모를 남겨주세요 (비워두면 삭제됩니다):", existingMemo);
+    
+    if (newMemo !== null) {
+      setMemos(prev => {
+        const updated = { ...prev };
+        if (newMemo.trim() === "") {
+          delete updated[jobId];
+        } else {
+          updated[jobId] = newMemo;
+        }
+        return updated;
+      });
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -320,7 +350,8 @@ export default function Home() {
   const exportData = () => {
     const data = {
       bookmarks: bookmarkedJobs,
-      hidden: hiddenCompanies
+      hidden: hiddenCompanies,
+      memos: memos
     };
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -348,8 +379,12 @@ export default function Home() {
         if (data.hidden && Array.isArray(data.hidden)) {
           setHiddenCompanies(data.hidden);
         }
+        if (data.memos && typeof data.memos === 'object') {
+          setMemos(data.memos);
+        }
         alert('데이터 복원이 완료되었습니다.');
-      } catch (error) {
+      } catch (err) {
+        console.error("Import failed:", err);
         alert('잘못된 백업 파일입니다.');
       }
     };
@@ -417,7 +452,7 @@ export default function Home() {
               </div>
               
               {!isLoading && (
-                <div className="w-full sm:w-64">
+                <div className="w-full sm:w-64 relative">
                   <input
                     ref={searchInputRef}
                     type="text"
@@ -531,15 +566,13 @@ export default function Home() {
                   const isHidden = hiddenCompanies.includes(job.company);
                   
                   return (
-                    <a 
+                    <div 
                       key={job.id} 
-                      href={job.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800"
+                      className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800 cursor-pointer"
+                      onClick={() => window.open(job.url, '_blank')}
                     >
                       <div className="flex justify-between items-start">
-                        <div className="pr-32">
+                        <div className="pr-40">
                           <div className="flex items-center gap-3 mb-2">
                             {getPlatformBadge(job.id)}
                             <div className="flex items-center gap-2">
@@ -574,6 +607,17 @@ export default function Home() {
                         </div>
                         <div className="absolute top-4 right-4 flex gap-1 items-center">
                           <button
+                            onClick={(e) => handleMemo(e, job.id)}
+                            className={`p-1.5 rounded-full transition-all ${
+                              memos[job.id] 
+                                ? 'text-blue-500 bg-blue-50 dark:bg-blue-900/30 hover:scale-110 active:scale-95' 
+                                : 'text-gray-400 dark:text-gray-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:scale-110 active:scale-95'
+                            }`}
+                            title="메모 남기기"
+                          >
+                            📝
+                          </button>
+                          <button
                             onClick={(e) => handleShare(e, job)}
                             className="p-1.5 rounded-full text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:scale-110 active:scale-95 transition-all"
                             title="공유하기"
@@ -600,6 +644,7 @@ export default function Home() {
                           </button>
                         </div>
                       </div>
+                      
                       {job.skills && job.skills.length > 0 && (
                         <div className="mt-4 flex flex-wrap gap-2">
                           {job.skills.map((skill, index) => (
@@ -609,7 +654,19 @@ export default function Home() {
                           ))}
                         </div>
                       )}
-                    </a>
+
+                      {memos[job.id] && (
+                        <div 
+                          className="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300 text-xs rounded-lg border border-yellow-200 dark:border-yellow-800/50"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="flex items-start gap-2">
+                            <span className="text-yellow-600 dark:text-yellow-500 mt-0.5">📌</span>
+                            <p className="whitespace-pre-wrap flex-1">{memos[job.id]}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   );
                 })
               ) : (
@@ -635,7 +692,7 @@ export default function Home() {
         <aside className="space-y-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
             <h2 className="text-sm font-bold mb-4 text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 dark:border-blue-400 pl-2">데이터 백업 / 복원</h2>
-            <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">로컬스토리지에 저장된 찜한 공고와 숨긴 기업 목록을 JSON 파일로 내보내거나 불러옵니다.</p>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">로컬스토리지에 저장된 찜, 메모, 숨긴 기업 목록을 JSON 파일로 내보내거나 불러옵니다.</p>
             <div className="flex gap-2">
               <button onClick={exportData} className="flex-1 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-medium rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">백업하기</button>
               <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">복원하기</button>
