@@ -30,11 +30,6 @@ export default function Home() {
       });
   }, []);
 
-  // 필터가 변경될 때마다 보여지는 개수를 20개로 초기화
-  useEffect(() => {
-    setDisplayCount(20);
-  }, [selectedSkill]);
-
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
     jobs.forEach(job => {
@@ -126,7 +121,11 @@ export default function Home() {
                 {filterOptions.map(skill => (
                   <button
                     key={skill}
-                    onClick={() => setSelectedSkill(skill)}
+                    onClick={() => {
+                      // 버튼 클릭 시 필터 변경과 개수 초기화를 동시에 처리합니다.
+                      setSelectedSkill(skill);
+                      setDisplayCount(20);
+                    }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       selectedSkill === skill
                         ? 'bg-blue-600 text-white'
@@ -200,7 +199,6 @@ export default function Home() {
               )}
             </div>
 
-            {/* 더 보기 버튼 */}
             {!isLoading && visibleJobs.length < filteredJobs.length && (
               <div className="mt-8 text-center">
                 <button 
