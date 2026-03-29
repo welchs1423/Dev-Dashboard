@@ -34,22 +34,24 @@ export default function Home() {
         setIsLoading(false);
       });
 
-    const savedBookmarks = localStorage.getItem('dev_dashboard_bookmarks');
-    if (savedBookmarks) {
-      setBookmarkedJobs(JSON.parse(savedBookmarks));
-    }
+    setTimeout(() => {
+      const savedBookmarks = localStorage.getItem('dev_dashboard_bookmarks');
+      if (savedBookmarks) {
+        setBookmarkedJobs(JSON.parse(savedBookmarks));
+      }
 
-    const savedHidden = localStorage.getItem('dev_dashboard_hidden');
-    if (savedHidden) {
-      setHiddenCompanies(JSON.parse(savedHidden));
-    }
-    
-    const savedTheme = localStorage.getItem('dev_dashboard_theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
+      const savedHidden = localStorage.getItem('dev_dashboard_hidden');
+      if (savedHidden) {
+        setHiddenCompanies(JSON.parse(savedHidden));
+      }
+      
+      const savedTheme = localStorage.getItem('dev_dashboard_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        setIsDarkMode(true);
+        document.documentElement.classList.add('dark');
+      }
+    }, 0);
   }, []);
 
   useEffect(() => {
