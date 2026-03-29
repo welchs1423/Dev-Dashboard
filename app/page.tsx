@@ -26,7 +26,6 @@ export default function Home() {
     fetch('/jobs_data.json')
       .then((res) => res.json())
       .then((data: Job[]) => {
-        // 회사명과 공고 제목이 완전히 일치하는 중복 데이터 제거
         const uniqueJobs = data.filter((job, index, self) =>
           index === self.findIndex((t) => (
             t.company.trim() === job.company.trim() && t.title.trim() === job.title.trim()
@@ -165,6 +164,28 @@ export default function Home() {
         return [...prev, companyName];
       }
     });
+  };
+
+  const handleShare = async (e: React.MouseEvent, job: Job) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const shareData = {
+      title: job.title,
+      text: `${job.company} - ${job.title}`,
+      url: job.url,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(job.url);
+        alert('공고 링크가 클립보드에 복사되었습니다.');
+      }
+    } catch (error) {
+      console.error('Share failed:', error);
+    }
   };
 
   const scrollToTop = () => {
@@ -307,7 +328,7 @@ export default function Home() {
                       className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800"
                     >
                       <div className="flex justify-between items-start">
-                        <div className="pr-20">
+                        <div className="pr-28">
                           <div className="flex items-center gap-2 mb-1">
                             {getPlatformBadge(job.id)}
                             <p className="text-sm text-gray-500 dark:text-gray-400">{job.company}</p>
@@ -316,10 +337,18 @@ export default function Home() {
                             {job.title}
                           </h3>
                         </div>
-                        <div className="absolute top-5 right-5 flex gap-3">
+                        <div className="absolute top-5 right-5 flex gap-3 items-center">
+                          <button
+                            onClick={(e) => handleShare(e, job)}
+                            className="text-lg text-gray-300 dark:text-gray-600 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                            aria-label="공유하기"
+                          >
+                            🔗
+                          </button>
                           <button
                             onClick={(e) => toggleHiddenCompany(e, job.company)}
                             className="text-lg text-gray-300 dark:text-gray-600 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                            aria-label="기업 숨기기"
                           >
                             {isHidden ? '복구' : '🚫'}
                           </button>
@@ -328,6 +357,7 @@ export default function Home() {
                             className={`text-xl transition-colors ${
                               isBookmarked ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400 dark:hover:text-yellow-400'
                             }`}
+                            aria-label="북마크"
                           >
                             {isBookmarked ? '★' : '☆'}
                           </button>
