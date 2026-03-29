@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+"use client";
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 interface Job {
@@ -11,15 +12,36 @@ interface Job {
 }
 
 export default function Home() {
-  const filePath = path.join(process.cwd(), 'public', 'jobs_data.json');
-  let jobs: Job[] = [];
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<string>("All");
 
-  try {
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    jobs = JSON.parse(fileContents);
-  } catch (error) {
-    console.error("File read failed:", error);
-  }
+  useEffect(() => {
+    fetch('/jobs_data.json')
+      .then((res) => res.json())
+      .then((data) => setJobs(data))
+      .catch((error) => console.error("Data fetch error:", error));
+  }, []);
+
+  const getTopSkills = () => {
+    const skillCounts: Record<string, number> = {};
+    jobs.forEach(job => {
+      job.skills.forEach(skill => {
+        skillCounts[skill] = (skillCounts[skill] || 0) + 1;
+      });
+    });
+    
+    return Object.entries(skillCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(entry => entry[0]);
+  };
+
+  const topSkills = getTopSkills();
+  const filterOptions = ["All", ...topSkills];
+
+  const filteredJobs = selectedSkill === "All" 
+    ? jobs 
+    : jobs.filter(job => job.skills.includes(selectedSkill));
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans">
@@ -59,14 +81,30 @@ export default function Home() {
           </section>
 
           <section className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="flex justify-between items-center mb-6 pb-2 border-b">
+            <div className="flex justify-between items-center mb-4 pb-2 border-b">
               <h2 className="text-lg font-bold text-gray-800">최신 신입 및 주니어 공고</h2>
               <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">제공: 점핏, 사람인</span>
             </div>
             
+            <div className="flex flex-wrap gap-2 mb-6">
+              {filterOptions.map(skill => (
+                <button
+                  key={skill}
+                  onClick={() => setSelectedSkill(skill)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    selectedSkill === skill
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  {skill === "All" ? "전체 보기" : skill}
+                </button>
+              ))}
+            </div>
+
             <div className="space-y-4">
-              {jobs.length > 0 ? (
-                jobs.map((job) => (
+              {filteredJobs.length > 0 ? (
+                filteredJobs.map((job) => (
                   <a 
                     key={job.id} 
                     href={job.url} 
@@ -101,7 +139,7 @@ export default function Home() {
                 ))
               ) : (
                 <div className="text-center py-10">
-                  <p className="text-sm text-gray-400 italic">데이터를 불러오는 중이거나 현재 등록된 공고가 없습니다.</p>
+                  <p className="text-sm text-gray-400 italic">해당 기술 스택을 요구하는 공고가 없습니다.</p>
                 </div>
               )}
             </div>
