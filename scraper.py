@@ -2,26 +2,17 @@ import os
 import json
 import requests
 import re
-from bs4 import BeautifulSoup
+from datetime import datetime
 
 def fetch_jumpit_jobs():
     url = "https://api.jumpit.co.kr/api/positions"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-    params = {
-        "sort": "reg_dt",
-        "page": 1
-    }
-
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    params = {"sort": "reg_dt", "page": 1}
     try:
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        response.raise_for_status()
         data = response.json()
         jobs = []
-        positions = data.get("result", {}).get("positions", [])
-
-        for item in positions:
+        for item in data.get("result", {}).get("positions", []):
             job_id = item.get("id")
             jobs.append({
                 "id": f"jumpit_{job_id}",
@@ -31,152 +22,113 @@ def fetch_jumpit_jobs():
                 "url": f"https://www.jumpit.co.kr/position/{job_id}"
             })
         return jobs
-    except Exception as e:
-        print(f"Jumpit error: {e}")
-        return []
+    except: return []
 
 def fetch_saramin_jobs():
     url = "https://www.saramin.co.kr/zf_user/search/recruit"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-    }
-    params = {
-        "searchword": "개발자",
-        "recruitPage": 1,
-        "recruitSort": "reg_dt"
-    }
-
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    params = {"searchword": "개발자", "recruitPage": 1, "recruitSort": "reg_dt"}
     try:
+        from bs4 import BeautifulSoup
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         jobs = []
-        
-        item_list = soup.select('.item_recruit')
-        for item in item_list:
+        for item in soup.select('.item_recruit'):
             try:
                 job_id = item.get('value')
                 company = item.select_one('.corp_name a').text.strip()
                 title_elem = item.select_one('.job_tit a')
-                title = title_elem.text.strip()
-                link = "https://www.saramin.co.kr" + title_elem['href']
-                
-                sector_elem = item.select_one('.job_sector')
-                skills = []
-                if sector_elem:
-                    raw_skills = [s.strip() for s in sector_elem.text.strip().split(',') if s.strip()]
-                    for s in raw_skills:
-                        if "등록일" in s or "수정일" in s or re.search(r'\d{2}/\d{2}/\d{2}', s):
-                            continue
-                        if s.startswith("외"):
-                            continue
-                        skills.append(s)
-                    skills = skills[:5]
-
                 jobs.append({
                     "id": f"saramin_{job_id}",
                     "company": company,
-                    "title": title,
-                    "skills": skills,
-                    "url": link
+                    "title": title_elem.text.strip(),
+                    "skills": [],
+                    "url": "https://www.saramin.co.kr" + title_elem['href']
                 })
-            except Exception:
-                continue
+            except: continue
         return jobs
-    except Exception as e:
-        print(f"Saramin error: {e}")
-        return []
+    except: return []
 
 def fetch_wanted_jobs():
     url = "https://www.wanted.co.kr/api/v4/jobs"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-    params = {
-        "country": "kr",
-        "tag_type_ids": "518",
-        "locations": "all",
-        "limit": "20",
-        "offset": "0",
-        "job_sort": "job.latest_order"
-    }
-
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    params = {"country": "kr", "tag_type_ids": "518", "limit": "20", "job_sort": "job.latest_order"}
     try:
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        response.raise_for_status()
         data = response.json()
         jobs = []
-        
         for item in data.get("data", []):
-            job_id = item.get("id")
-            company_name = item.get("company", {}).get("name")
-            title = item.get("position")
-            
             jobs.append({
-                "id": f"wanted_{job_id}",
-                "company": company_name,
-                "title": title,
+                "id": f"wanted_{item.get('id')}",
+                "company": item.get("company", {}).get("name"),
+                "title": item.get("position"),
                 "skills": [],
-                "url": f"https://www.wanted.co.kr/wd/{job_id}"
+                "url": f"https://www.wanted.co.kr/wd/{item.get('id')}"
             })
         return jobs
-    except Exception as e:
-        print(f"Wanted error: {e}")
-        return []
+    except: return []
 
-def fetch_festa_events():
-    url = "https://festa.io/api/v1/events?page=1&pageSize=20&order=startDate&excludeExternalEvents=false"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "application/json"
-    }
+def fetch_it_events_universal():
+    url = "https://raw.githubusercontent.com/brave-people/Dev-Event/master/README.md"
     try:
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
-        data = response.json()
+        lines = response.text.split('\n')
+        
         events = []
-        for item in data.get("rows", []):
-            host_info = item.get('hostOrganization', 'Festa')
-            if isinstance(host_info, dict):
-                host_name = host_info.get('name', 'Festa')
-            else:
-                host_name = host_info
+        now = datetime.now()
+        
+        for idx, line in enumerate(lines):
+            # [제목](링크) 추출
+            link_match = re.search(r'\[(.*?)\]\((https?://.*?)\)', line)
+            if not link_match: continue
+            
+            title = link_match.group(1).strip()
+            link = link_match.group(2).strip()
+            
+            if any(x in link.lower() for x in ["brave-people", "contributing"]): continue
+            
+            # MM/DD 또는 MM.DD 형식 추출
+            date_match = re.search(r'(\d{1,2})[./](\d{1,2})', line)
+            if date_match:
+                month = int(date_match.group(1))
+                day = int(date_match.group(2))
+                try:
+                    event_date = datetime(2026, month, day)
+                    # 2026년 오늘 기준 종료된 이벤트 제외
+                    if event_date.date() < now.date(): continue
+                    full_date = event_date.strftime('%Y-%m-%dT09:00:00Z')
+                except: continue
+            else: continue
 
             events.append({
-                "id": f"festa_{item['eventId']}",
-                "title": item['name'],
-                "date": item['startDate'],
-                "host": host_name,
-                "url": f"https://festa.io/events/{item['eventId']}",
-                "type": "행사"
+                "id": f"event_{idx}",
+                "title": title,
+                "date": full_date,
+                "host": "IT 커뮤니티",
+                "url": link,
+                "type": "IT 행사"
             })
-        return events
+            
+        return sorted(events, key=lambda x: x['date'])
     except Exception as e:
-        print(f"Festa error: {e}")
+        print(f"Universal Parsing Error: {e}")
         return []
 
 def main():
-    jumpit_data = fetch_jumpit_jobs()
-    saramin_data = fetch_saramin_jobs()
-    wanted_data = fetch_wanted_jobs()
-    
-    all_jobs = jumpit_data + saramin_data + wanted_data
-    
-    # 순수 IT 행사 크롤링 데이터만 사용 (거짓 자격증 데이터 제거)
-    all_events = fetch_festa_events()
-
     save_dir = "public"
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
+    if not os.path.exists(save_dir): os.makedirs(save_dir)
 
-    jobs_file_path = os.path.join(save_dir, "jobs_data.json")
-    with open(jobs_file_path, "w", encoding="utf-8") as f:
+    all_jobs = fetch_jumpit_jobs() + fetch_saramin_jobs() + fetch_wanted_jobs()
+    with open(os.path.join(save_dir, "jobs_data.json"), "w", encoding="utf-8") as f:
         json.dump(all_jobs, f, ensure_ascii=False, indent=2)
 
-    events_file_path = os.path.join(save_dir, "events_data.json")
-    with open(events_file_path, "w", encoding="utf-8") as f:
+    all_events = fetch_it_events_universal()
+    with open(os.path.join(save_dir, "events_data.json"), "w", encoding="utf-8") as f:
         json.dump(all_events, f, ensure_ascii=False, indent=2)
+        
+    print(f"Job crawling completed: {len(all_jobs)} jobs saved.")
+    print(f"Event crawling completed: {len(all_events)} events saved.")
 
 if __name__ == "__main__":
     main()
