@@ -14,20 +14,29 @@ interface Job {
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<string>("All");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch('/jobs_data.json')
       .then((res) => res.json())
-      .then((data) => setJobs(data))
-      .catch((error) => console.error("Data fetch error:", error));
+      .then((data) => {
+        setJobs(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Data fetch error:", error);
+        setIsLoading(false);
+      });
   }, []);
 
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
     jobs.forEach(job => {
-      job.skills.forEach(skill => {
-        skillCounts[skill] = (skillCounts[skill] || 0) + 1;
-      });
+      if (job.skills) {
+        job.skills.forEach(skill => {
+          skillCounts[skill] = (skillCounts[skill] || 0) + 1;
+        });
+      }
     });
     
     return Object.entries(skillCounts)
@@ -41,7 +50,7 @@ export default function Home() {
 
   const filteredJobs = selectedSkill === "All" 
     ? jobs 
-    : jobs.filter(job => job.skills.includes(selectedSkill));
+    : jobs.filter(job => job.skills && job.skills.includes(selectedSkill));
 
   const getPlatformBadge = (id: string) => {
     if (id.startsWith('jumpit')) {
@@ -89,7 +98,7 @@ export default function Home() {
             </div>
             <div className="p-5 bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-green-500">
               <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">오늘의 채용 공고</h2>
-              <p className="mt-1 text-lg font-bold text-gray-700">{jobs.length} 건 업데이트됨</p>
+              <p className="mt-1 text-lg font-bold text-gray-700">{isLoading ? "-" : jobs.length} 건 업데이트됨</p>
             </div>
           </section>
 
@@ -99,24 +108,45 @@ export default function Home() {
               <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">제공: 점핏, 사람인, 원티드</span>
             </div>
             
-            <div className="flex flex-wrap gap-2 mb-6">
-              {filterOptions.map(skill => (
-                <button
-                  key={skill}
-                  onClick={() => setSelectedSkill(skill)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    selectedSkill === skill
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  {skill === "All" ? "전체 보기" : skill}
-                </button>
-              ))}
-            </div>
+            {!isLoading && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {filterOptions.map(skill => (
+                  <button
+                    key={skill}
+                    onClick={() => setSelectedSkill(skill)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                      selectedSkill === skill
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    {skill === "All" ? "전체 보기" : skill}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <div className="space-y-4">
-              {filteredJobs.length > 0 ? (
+              {isLoading ? (
+                Array.from({ length: 5 }).map((_, idx) => (
+                  <div key={idx} className="block p-5 border border-gray-100 rounded-xl animate-pulse bg-white">
+                    <div className="flex justify-between items-start">
+                      <div className="w-full pr-8">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="h-4 w-12 bg-gray-200 rounded"></div>
+                          <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                        </div>
+                        <div className="h-5 w-3/4 bg-gray-200 rounded mb-4"></div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="h-6 w-16 bg-gray-100 rounded-md"></div>
+                      <div className="h-6 w-20 bg-gray-100 rounded-md"></div>
+                      <div className="h-6 w-14 bg-gray-100 rounded-md"></div>
+                    </div>
+                  </div>
+                ))
+              ) : filteredJobs.length > 0 ? (
                 filteredJobs.map((job) => (
                   <a 
                     key={job.id} 
