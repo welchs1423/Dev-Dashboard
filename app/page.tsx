@@ -25,8 +25,14 @@ export default function Home() {
   useEffect(() => {
     fetch('/jobs_data.json')
       .then((res) => res.json())
-      .then((data) => {
-        setJobs(data);
+      .then((data: Job[]) => {
+        // 회사명과 공고 제목이 완전히 일치하는 중복 데이터 제거
+        const uniqueJobs = data.filter((job, index, self) =>
+          index === self.findIndex((t) => (
+            t.company.trim() === job.company.trim() && t.title.trim() === job.title.trim()
+          ))
+        );
+        setJobs(uniqueJobs);
         setIsLoading(false);
       })
       .catch((error) => {
