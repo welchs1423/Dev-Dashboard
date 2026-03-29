@@ -328,7 +328,7 @@ export default function Home() {
                       className="block p-5 border border-gray-100 dark:border-gray-700 rounded-xl hover:bg-blue-50/30 dark:hover:bg-gray-700 transition-all group relative bg-white dark:bg-gray-800"
                     >
                       <div className="flex justify-between items-start">
-                        <div className="pr-28">
+                        <div className="pr-32">
                           <div className="flex items-center gap-2 mb-1">
                             {getPlatformBadge(job.id)}
                             <p className="text-sm text-gray-500 dark:text-gray-400">{job.company}</p>
@@ -337,27 +337,29 @@ export default function Home() {
                             {job.title}
                           </h3>
                         </div>
-                        <div className="absolute top-5 right-5 flex gap-3 items-center">
+                        <div className="absolute top-4 right-4 flex gap-1 items-center">
                           <button
                             onClick={(e) => handleShare(e, job)}
-                            className="text-lg text-gray-300 dark:text-gray-600 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                            aria-label="공유하기"
+                            className="p-1.5 rounded-full text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:scale-110 active:scale-95 transition-all"
+                            title="공유하기"
                           >
                             🔗
                           </button>
                           <button
                             onClick={(e) => toggleHiddenCompany(e, job.company)}
-                            className="text-lg text-gray-300 dark:text-gray-600 hover:text-red-500 dark:hover:text-red-400 transition-colors"
-                            aria-label="기업 숨기기"
+                            className="p-1.5 rounded-full text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:scale-110 active:scale-95 transition-all"
+                            title={isHidden ? '숨김 해제' : '기업 숨기기'}
                           >
                             {isHidden ? '복구' : '🚫'}
                           </button>
                           <button
                             onClick={(e) => toggleBookmark(e, job.id)}
-                            className={`text-xl transition-colors ${
-                              isBookmarked ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400 dark:hover:text-yellow-400'
+                            className={`p-1.5 rounded-full hover:scale-110 active:scale-95 transition-all ${
+                              isBookmarked 
+                                ? 'text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/30' 
+                                : 'text-gray-400 dark:text-gray-500 hover:text-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/30'
                             }`}
-                            aria-label="북마크"
+                            title={isBookmarked ? '북마크 해제' : '북마크'}
                           >
                             {isBookmarked ? '★' : '☆'}
                           </button>
