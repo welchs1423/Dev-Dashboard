@@ -78,11 +78,11 @@ export default function TrendPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-200">
-      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200 hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</Link>
           <div className="flex items-center gap-6">
-            <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <nav className="flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
               <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400">채용공고</Link>
               <Link href="/trend" className="hover:text-blue-600 dark:hover:text-blue-400 font-bold">기술트렌드</Link>
             </nav>
@@ -93,6 +93,12 @@ export default function TrendPage() {
               {isDarkMode ? '🌙' : '☀️'}
             </button>
           </div>
+        </div>
+      </header>
+
+      <header className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
+        <div className="flex justify-center items-center">
+          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</span>
         </div>
       </header>
 
@@ -131,7 +137,7 @@ export default function TrendPage() {
         </div>
       </main>
 
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 transition-colors duration-200 w-full">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 pb-24 md:pb-10 transition-colors duration-200 w-full">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="space-y-2">
@@ -148,6 +154,21 @@ export default function TrendPage() {
           </div>
         </div>
       </footer>
+
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around items-center h-16 z-50 transition-colors duration-200 pb-safe">
+        <Link href="/" className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">💼</span>
+          <span className="text-[10px] font-medium">채용공고</span>
+        </Link>
+        <Link href="/trend" className="flex flex-col items-center justify-center w-full h-full text-blue-600 dark:text-blue-400">
+          <span className="text-xl mb-1">📈</span>
+          <span className="text-[10px] font-medium">트렌드</span>
+        </Link>
+        <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">{isDarkMode ? '🌙' : '☀️'}</span>
+          <span className="text-[10px] font-medium">테마</span>
+        </button>
+      </nav>
     </div>
   );
 }

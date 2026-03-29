@@ -28,6 +28,8 @@ export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const loaderRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch('/jobs_data.json')
@@ -115,6 +117,23 @@ export default function Home() {
         observer.unobserve(loaderRef.current);
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      } else if (e.key === '/' && document.activeElement !== searchInputRef.current) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      } else if (e.key === 'Escape' && document.activeElement === searchInputRef.current) {
+        searchInputRef.current?.blur();
+        setSearchQuery("");
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const toggleDarkMode = () => {
@@ -298,13 +317,55 @@ export default function Home() {
     setDisplayCount(20);
   };
 
+  const exportData = () => {
+    const data = {
+      bookmarks: bookmarkedJobs,
+      hidden: hiddenCompanies
+    };
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `dev_dashboard_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const importData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const result = event.target?.result as string;
+        const data = JSON.parse(result);
+        if (data.bookmarks && Array.isArray(data.bookmarks)) {
+          setBookmarkedJobs(data.bookmarks);
+        }
+        if (data.hidden && Array.isArray(data.hidden)) {
+          setHiddenCompanies(data.hidden);
+        }
+        alert('데이터 복원이 완료되었습니다.');
+      } catch (error) {
+        alert('잘못된 백업 파일입니다.');
+      }
+    };
+    reader.readAsText(file);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-200">
-      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200 hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</Link>
           <div className="flex items-center gap-6">
-            <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <nav className="flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
               <Link href="/" className="hover:text-blue-600 dark:hover:text-blue-400 font-bold">채용공고</Link>
               <Link href="/trend" className="hover:text-blue-600 dark:hover:text-blue-400">기술트렌드</Link>
             </nav>
@@ -315,6 +376,12 @@ export default function Home() {
               {isDarkMode ? '🌙' : '☀️'}
             </button>
           </div>
+        </div>
+      </header>
+
+      <header className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 sticky top-0 z-10 transition-colors duration-200">
+        <div className="flex justify-center items-center">
+          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">Dev Dashboard</span>
         </div>
       </header>
 
@@ -352,8 +419,9 @@ export default function Home() {
               {!isLoading && (
                 <div className="w-full sm:w-64">
                   <input
+                    ref={searchInputRef}
                     type="text"
-                    placeholder="회사명, 공고 제목 검색..."
+                    placeholder="회사명, 제목 검색 (/ 또는 Cmd+K)"
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value);
@@ -565,6 +633,16 @@ export default function Home() {
         </div>
 
         <aside className="space-y-6">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors duration-200">
+            <h2 className="text-sm font-bold mb-4 text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 dark:border-blue-400 pl-2">데이터 백업 / 복원</h2>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">로컬스토리지에 저장된 찜한 공고와 숨긴 기업 목록을 JSON 파일로 내보내거나 불러옵니다.</p>
+            <div className="flex gap-2">
+              <button onClick={exportData} className="flex-1 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-medium rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">백업하기</button>
+              <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">복원하기</button>
+              <input type="file" accept=".json" ref={fileInputRef} onChange={importData} className="hidden" />
+            </div>
+          </div>
+
           <div className="bg-gray-100 dark:bg-gray-800 h-64 rounded-xl flex items-center justify-center text-gray-400 dark:text-gray-500 text-xs border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors duration-200">
             AdSense 광고 영역
           </div>
@@ -580,7 +658,7 @@ export default function Home() {
         </aside>
       </main>
 
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 transition-colors duration-200">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 py-10 mt-12 pb-24 md:pb-10 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="space-y-2">
@@ -601,11 +679,26 @@ export default function Home() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-3 w-12 h-12 flex items-center justify-center bg-blue-600 dark:bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-700 dark:hover:bg-blue-600 hover:-translate-y-1 transition-all z-50"
+          className="fixed bottom-24 md:bottom-8 right-8 p-3 w-12 h-12 flex items-center justify-center bg-blue-600 dark:bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-700 dark:hover:bg-blue-600 hover:-translate-y-1 transition-all z-40"
         >
           ↑
         </button>
       )}
+
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around items-center h-16 z-50 transition-colors duration-200 pb-safe">
+        <Link href="/" className="flex flex-col items-center justify-center w-full h-full text-blue-600 dark:text-blue-400">
+          <span className="text-xl mb-1">💼</span>
+          <span className="text-[10px] font-medium">채용공고</span>
+        </Link>
+        <Link href="/trend" className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">📈</span>
+          <span className="text-[10px] font-medium">트렌드</span>
+        </Link>
+        <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center w-full h-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <span className="text-xl mb-1">{isDarkMode ? '🌙' : '☀️'}</span>
+          <span className="text-[10px] font-medium">테마</span>
+        </button>
+      </nav>
     </div>
   );
 }
