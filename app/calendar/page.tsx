@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 interface CalendarEvent { id: string; title: string; date: string; host: string; url: string; type: string; }
 
