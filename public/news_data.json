@@ -1,62 +1,172 @@
 [
   {
+    "source": "긱뉴스",
     "title": "Korean Law MCP - 대한민국 법령 검색·조회·분석 도구",
     "url": "https://github.com/chrisryugj/korean-law-mcp"
   },
   {
+    "source": "긱뉴스",
     "title": "Keploy - 트래픽 기반 자동 API 테스트 생성기",
     "url": "https://github.com/keploy/keploy"
   },
   {
+    "source": "긱뉴스",
     "title": "Harness — Claude Code 에이전트 팀 & 스킬 아키텍트 플러그인",
     "url": "https://github.com/revfactory/harness"
   },
   {
+    "source": "긱뉴스",
     "title": "인지적 암흑의 숲",
     "url": "https://ryelang.org/blog/posts/cognitive-dark-forest/"
   },
   {
+    "source": "긱뉴스",
     "title": "Pretext – DOM 없이 텍스트 높이를 측정하는 순수 JS 레이아웃 라이브러리",
     "url": "https://github.com/chenglou/pretext"
   },
   {
-    "title": "Show GN: StreamSheet - 대용량 엑셀 내보내기를 위한 Kotlin/Spring Boot 라이브러리",
-    "url": "https://news.hada.iotopic?id=27997"
-  },
-  {
-    "title": "Show GN: _y – 30개 AI 에이전트가 운영하는 AI 회사 (MIT, Ollama 호환)",
-    "url": "https://news.hada.iotopic?id=28012"
-  },
-  {
-    "title": "Codex 활용 사례 모음",
-    "url": "https://developers.openai.com/codex/use-cases"
-  },
-  {
-    "title": "보이저 1호 - 69KB 메모리와 8트랙 테이프 레코더로 운용되는 인류 최장수 탐사선",
-    "url": "https://techfixated.com/a-1977-time-capsule-voyager-1-runs-on-69-kb-of-memory-and-an-8-track-tape-recorder-4/"
-  },
-  {
-    "title": ".claude/ 폴더 구조 분석",
-    "url": "https://blog.dailydoseofds.com/p/anatomy-of-the-claude-folder"
-  },
-  {
+    "source": "긱뉴스",
     "title": "미루기는 시간 관리가 아니라 감정 조절의 문제입니다.",
     "url": "https://brunch.co.kr/@archcalendar/76"
   },
   {
-    "title": "AI 판사 도입시 디지털 변론주의의 확립: 프롬프트 합의 및 메타데이터 중립성 확보 방안",
-    "url": "https://woongaro.tistory.com/m/243"
+    "source": "긱뉴스",
+    "title": "Show GN: StreamSheet - 대용량 엑셀 내보내기를 위한 Kotlin/Spring Boot 라이브러리",
+    "url": "https://news.hada.iotopic?id=27997"
   },
   {
-    "title": "CPython 3.15의 JIT, 다시 궤도에 오르다",
-    "url": "https://blog.python.org/2026/03/jit-on-track/"
+    "source": "긱뉴스",
+    "title": "Show GN: _y – 30개 AI 에이전트가 운영하는 AI 회사 (MIT, Ollama 호환)",
+    "url": "https://news.hada.iotopic?id=28012"
   },
   {
-    "title": "ChatGPT는 Cloudflare가 React 상태를 읽을 때까지 입력을 차단함",
+    "source": "긱뉴스",
+    "title": "Codex 활용 사례 모음",
+    "url": "https://developers.openai.com/codex/use-cases"
+  },
+  {
+    "source": "긱뉴스",
+    "title": "보이저 1호 - 69KB 메모리와 8트랙 테이프 레코더로 운용되는 인류 최장수 탐사선",
+    "url": "https://techfixated.com/a-1977-time-capsule-voyager-1-runs-on-69-kb-of-memory-and-an-8-track-tape-recorder-4/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "무엇이든 라우터로 바꾸는 방법",
+    "original_title": "How to Turn Anything into a Router",
+    "url": "https://nbailey.ca/post/router/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "앵무새는 같은 질량의 영장류 뇌보다 두 배나 많은 뉴런을 가지고 있습니다.",
+    "original_title": "Parrots pack twice as many neurons as primate brains of the same mass",
+    "url": "https://www.dhanishsemar.com/writing/bird-brains"
+  },
+  {
+    "source": "Hacker News",
+    "title": "AI 시대의 수학적 방법과 인간의 사고",
+    "original_title": "Mathematical methods and human thought in the age of AI",
+    "url": "https://arxiv.org/abs/2603.26524"
+  },
+  {
+    "source": "Hacker News",
+    "title": "레트로 데모 장면 그래픽의 흥미로운 사례",
+    "original_title": "The curious case of retro demo scene graphics",
+    "url": "https://www.datagubbe.se/aipixels/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "ChatGPT에서는 Cloudflare가 React 상태를 읽을 때까지 입력을 허용하지 않습니다.",
+    "original_title": "ChatGPT won't let you type until Cloudflare reads your React state",
     "url": "https://www.buchodi.com/chatgpt-wont-let-you-type-until-cloudflare-reads-your-react-state-i-decrypted-the-program-that-does-it/"
   },
   {
-    "title": "삶을 더 편하게 만드는 Shell 트릭",
-    "url": "https://blog.hofstede.it/shell-tricks-that-actually-make-life-easier-and-save-your-sanity/"
+    "source": "Hacker News",
+    "title": "나는 내 블로그의 다이어그램을 관리하기 위해excalidraw를 사용합니다.",
+    "original_title": "I use excalidraw to manage my diagrams for my blog",
+    "url": "https://blog.lysk.tech/excalidraw-frame-export/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "Ghostmoon.app – macOS 메뉴 바를 위한 Swiss Army Knife",
+    "original_title": "Ghostmoon.app – The Swiss Army Knife for your macOS menu bar",
+    "url": "https://www.mgrunwald.com/ghostmoon/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "수학에서는 엄격함이 중요합니다. 하지만 디지털화된 증거가 너무 멀리 나아가고 있나요?",
+    "original_title": "In Math, Rigor Is Vital. But Are Digitized Proofs Taking It Too Far?",
+    "url": "https://www.quantamagazine.org/in-math-rigor-is-vital-but-are-digitized-proofs-taking-it-too-far-20260325/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "종합적인 C++ 해시맵 벤치마크(2022)",
+    "original_title": "Comprehensive C++ Hashmap Benchmarks (2022)",
+    "url": "https://martin.ankerl.com/2022/08/27/hashmap-bench-01/"
+  },
+  {
+    "source": "Hacker News",
+    "title": "제대로 된 스프링 부트: 400개 모듈 코드베이스에서 얻은 교훈",
+    "original_title": "Spring Boot Done Right: Lessons from a 400-Module Codebase",
+    "url": "https://medium.com/all-things-software/spring-boot-done-right-lessons-from-a-400-module-codebase-e636c3c34149"
+  },
+  {
+    "source": "Dev.to",
+    "title": "NoteRunway: 귀하의 Notion Workspace에는 엘리트 승무원이 있어야 하기 때문입니다.",
+    "original_title": "NoteRunway: Because Your Notion Workspace Deserves an Elite Crew",
+    "url": "https://dev.to/georgekobaidze/noterunway-because-your-notion-workspace-deserves-an-elite-crew-53bk"
+  },
+  {
+    "source": "Dev.to",
+    "title": "CodePen TV의 비밀",
+    "original_title": "CodePen TV secrets",
+    "url": "https://dev.to/ivorjetski/codepen-tv-secrets-fib"
+  },
+  {
+    "source": "Dev.to",
+    "title": "속도뿐만 아니라 안정성도 측정하는 피아노 트레이너를 만들었습니다",
+    "original_title": "I Built a Piano Trainer That Measures Stability, Not Just Speed",
+    "url": "https://dev.to/davincileonhard/i-built-a-piano-trainer-that-measures-stability-not-just-speed-387c"
+  },
+  {
+    "source": "Dev.to",
+    "title": "이번 주 목표는 무엇인가요? #172",
+    "original_title": "What are your goals for the week? #172",
+    "url": "https://dev.to/jarvisscript/what-are-your-goals-for-the-week-55nm"
+  },
+  {
+    "source": "Dev.to",
+    "title": "AI 에이전트용 SSE가 오전 2시에 계속 중단되는 이유",
+    "original_title": "Why SSE for AI agents keeps breaking at 2am",
+    "url": "https://dev.to/abhishek_chatterjee_33b9d/why-sse-for-ai-agents-keeps-breaking-at-2am-55ie"
+  },
+  {
+    "source": "Dev.to",
+    "title": "Keep_AS — 기회를 놓치지 않는 시스템",
+    "original_title": "Keep_AS — The System That Refuses to Let You Miss Opportunities",
+    "url": "https://dev.to/asamaes/keepas-the-system-that-refuses-to-let-you-miss-opportunities-57hg"
+  },
+  {
+    "source": "Dev.to",
+    "title": "Reflective — Notion MCP 및 Claude로 구축된 AI 저널링 동반자",
+    "original_title": "Reflective — AI journaling companion built with Notion MCP and Claude",
+    "url": "https://dev.to/neicore/reflective-ai-journaling-companion-built-with-notion-mcp-and-claude-4l70"
+  },
+  {
+    "source": "Dev.to",
+    "title": "Notion MCP에서 ISO/IEC 27001 지원 MCP 보안 스캐너 시스템 구축",
+    "original_title": "Building an ISO/IEC 27001-Ready MCP Security Scanner System on Notion MCP",
+    "url": "https://dev.to/terungwa-mzer/whos-auditing-your-ais-tools-building-an-iso-27001-ready-mcp-security-system-on-notion-mcp-338g"
+  },
+  {
+    "source": "Dev.to",
+    "title": "Agentic Shell - CLI 에이전트 적응 계층",
+    "original_title": "Agentic Shell - cli agent adaption layer",
+    "url": "https://dev.to/scott_raisbeck_24ea5fbc1e/agentic-shell-cli-agent-adaption-layer-l7m"
+  },
+  {
+    "source": "Dev.to",
+    "title": "S3, EventBridge, Lambda, Step Functions 및 Glue를 사용한 서버리스 ETL/ELT 아키텍처",
+    "original_title": "Serverless ETL/ELT Architecture with S3, EventBridge, Lambda, Step Functions, and Glue",
+    "url": "https://dev.to/aws-builders/serverless-etlelt-architecture-with-s3-eventbridge-lambda-step-functions-and-glue-31l1"
   }
 ]

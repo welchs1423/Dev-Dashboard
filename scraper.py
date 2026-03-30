@@ -1,170 +1,102 @@
 import os
 import json
 import requests
-import re
-import time  # 🚀 차단 방지용 매너 타임 추가
+import time
+from deep_translator import GoogleTranslator
 
+# 공통 헤더 설정 (차단 방지)
 COMMON_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "ko-KR,ko;q=0.9"
 }
 
-def extract_skills_from_title(title):
-    skills = []
-    title_lower = title.lower()
-    keyword_map = {
-        "java": "Java", "python": "Python", "react": "React", "vue": "Vue",
-        "node": "Node.js", "spring": "Spring", "c++": "C++", "c#": "C#",
-        "devops": "DevOps", "aws": "AWS", "ios": "iOS", "android": "Android",
-        "백엔드": "Backend", "프론트": "Frontend", "데이터": "Data",
-        "인프라": "Infra", "ai": "AI", "머신러닝": "Machine Learning",
-        "db": "DB", "dba": "DBA", "퍼블리셔": "Publisher", "보안": "Security",
-        "go": "Go", "php": "PHP", "ruby": "Ruby", "unity": "Unity", "unreal": "Unreal"
-    }
-    for key, val in keyword_map.items():
-        if key in title_lower:
-            if key == "go" and not re.search(r'\bgo\b', title_lower):
-                continue
-            skills.append(val)
-    return skills
-
-def fetch_jumpit_jobs():
-    jobs = []
-    # 🚀 1페이지부터 3페이지까지 딥 스크래핑
-    for page in range(1, 4):
-        url = "https://api.jumpit.co.kr/api/positions"
-        params = {"sort": "reg_dt", "page": page}
-        try:
-            response = requests.get(url, headers=COMMON_HEADERS, params=params, timeout=10)
-            data = response.json()
-            for item in data.get("result", {}).get("positions", []):
-                job_id = item.get("id")
-                title = item.get("title")
-                skills = item.get("techStacks", [])
-                if not skills: skills = extract_skills_from_title(title)
-                jobs.append({
-                    "id": f"jumpit_{job_id}",
-                    "company": item.get("companyName"),
-                    "title": title,
-                    "skills": skills,
-                    "url": f"https://www.jumpit.co.kr/position/{job_id}"
-                })
-            time.sleep(1) # 차단 방지를 위한 1초 휴식
-        except: continue
-    return jobs
-
-def fetch_saramin_jobs():
-    jobs = []
-    try:
-        from bs4 import BeautifulSoup
-        # 🚀 1페이지부터 3페이지까지 딥 스크래핑
-        for page in range(1, 4):
-            url = "https://www.saramin.co.kr/zf_user/search/recruit"
-            params = {"searchword": "개발자", "recruitPage": page, "recruitSort": "reg_dt"}
-            response = requests.get(url, headers=COMMON_HEADERS, params=params, timeout=10)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            for item in soup.select('.item_recruit'):
-                try:
-                    job_id = item.get('value')
-                    company = item.select_one('.corp_name a').text.strip()
-                    title = item.select_one('.job_tit a').text.strip()
-                    url_href = "https://www.saramin.co.kr" + item.select_one('.job_tit a')['href']
-                    skills = extract_skills_from_title(title)
-                    jobs.append({
-                        "id": f"saramin_{job_id}",
-                        "company": company, "title": title, "skills": skills, "url": url_href
-                    })
-                except: continue
-            time.sleep(1) # 1초 휴식
-        return jobs
-    except: return []
-
-def fetch_wanted_jobs():
-    url = "https://www.wanted.co.kr/api/v4/jobs"
-    # 🚀 limit을 20에서 100으로 대폭 상향 (한 번에 와장창 가져오기)
-    params = {"country": "kr", "tag_type_ids": "518", "limit": "100", "job_sort": "job.latest_order"}
-    try:
-        response = requests.get(url, headers=COMMON_HEADERS, params=params, timeout=10)
-        data = response.json()
-        jobs = []
-        for item in data.get("data", []):
-            title = item.get("position")
-            skills = extract_skills_from_title(title)
-            jobs.append({
-                "id": f"wanted_{item.get('id')}",
-                "company": item.get("company", {}).get("name"),
-                "title": title, "skills": skills, "url": f"https://www.wanted.co.kr/wd/{item.get('id')}"
-            })
-        return jobs
-    except: return []
-
-# 🚀 신규 추가: 프로그래머스 (Wide 스크래핑)
-def fetch_programmers_jobs():
-    jobs = []
-    try:
-        from bs4 import BeautifulSoup
-        # 프로그래머스 1~2페이지 수집
-        for page in range(1, 3):
-            url = f"https://career.programmers.co.kr/job?page={page}"
-            response = requests.get(url, headers=COMMON_HEADERS, timeout=10)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            for item in soup.select('.list-position-item'):
-                try:
-                    title_el = item.select_one('.position-title a')
-                    company_el = item.select_one('.company-name')
-                    if not title_el or not company_el: continue
-                    
-                    job_id = title_el['href'].split('/')[-1]
-                    title = title_el.text.strip()
-                    company = company_el.text.strip()
-                    url_href = "https://career.programmers.co.kr" + title_el['href']
-                    skills = extract_skills_from_title(title)
-
-                    jobs.append({
-                        "id": f"programmers_{job_id}",
-                        "company": company,
-                        "title": title,
-                        "skills": skills,
-                        "url": url_href
-                    })
-                except: continue
-            time.sleep(1)
-        return jobs
-    except: return []
-
 def fetch_it_news():
-    url = "https://news.hada.io/"
+    """IT 뉴스 수집 및 영어 제목 한국어 번역"""
+    translator = GoogleTranslator(source='auto', target='ko')
+    news_list = []
+    
+    # 1. 긱뉴스 (Hada) - 국내 IT 커뮤니티
     try:
         from bs4 import BeautifulSoup
+        url = "https://news.hada.io/"
         response = requests.get(url, headers=COMMON_HEADERS, timeout=10)
         soup = BeautifulSoup(response.text, 'html.parser')
-        news = []
-        for item in soup.select('.topictitle a'):
+        
+        # 최신 뉴스 10개 추출
+        for item in soup.select('.topictitle a')[:10]:
             title = item.text.strip()
             link = item.get('href', '')
-            if not link.startswith('http'): link = "https://news.hada.io" + link
-            news.append({"title": title, "url": link})
-        return news[:15]
+            if not link.startswith('http'): 
+                link = "https://news.hada.io" + link
+            news_list.append({
+                "source": "긱뉴스", 
+                "title": title, 
+                "url": link
+            })
     except Exception as e:
-        print(f"News Parsing Error: {e}")
-        return []
+        print(f"Hada Parsing Error: {e}")
+
+    # 2. Hacker News - 글로벌 기술 트렌드 (공식 API)
+    try:
+        top_stories_url = "https://hacker-news.firebaseio.com/v0/topstories.json"
+        ids_res = requests.get(top_stories_url, timeout=10)
+        story_ids = ids_res.json()[:10]
+        
+        for sid in story_ids:
+            item_url = f"https://hacker-news.firebaseio.com/v0/item/{sid}.json"
+            item_res = requests.get(item_url, timeout=5)
+            item_data = item_res.json()
+            
+            if item_data and "title" in item_data and "url" in item_data:
+                original_title = item_data['title']
+                # 제목 번역
+                translated_title = translator.translate(original_title)
+                news_list.append({
+                    "source": "Hacker News", 
+                    "title": f"[번역] {translated_title}", 
+                    "original_title": original_title,
+                    "url": item_data['url']
+                })
+            time.sleep(0.1) # 짧은 지연시간 추가
+    except Exception as e:
+        print(f"Hacker News API Error: {e}")
+
+    # 3. Dev.to - 개발자 아티클 및 인사이트 (공식 API)
+    try:
+        dev_to_url = "https://dev.to/api/articles?top=1&per_page=10"
+        response = requests.get(dev_to_url, headers=COMMON_HEADERS, timeout=10)
+        data = response.json()
+        
+        for item in data:
+            original_title = item['title']
+            # 제목 번역
+            translated_title = translator.translate(original_title)
+            news_list.append({
+                "source": "Dev.to", 
+                "title": f"[번역] {translated_title}",
+                "original_title": original_title,
+                "url": item['url']
+            })
+    except Exception as e:
+        print(f"Dev.to API Error: {e}")
+
+    return news_list
 
 def main():
     save_dir = "public"
-    if not os.path.exists(save_dir): os.makedirs(save_dir)
+    if not os.path.exists(save_dir): 
+        os.makedirs(save_dir)
 
-    # 🚀 프로그래머스 추가 수집 병합
-    all_jobs = fetch_jumpit_jobs() + fetch_saramin_jobs() + fetch_wanted_jobs() + fetch_programmers_jobs()
-    with open(os.path.join(save_dir, "jobs_data.json"), "w", encoding="utf-8") as f:
-        json.dump(all_jobs, f, ensure_ascii=False, indent=2)
-
+    print("IT 뉴스 수집 및 번역을 시작합니다...")
     all_news = fetch_it_news()
-    with open(os.path.join(save_dir, "news_data.json"), "w", encoding="utf-8") as f:
+    
+    # 결과 저장
+    save_path = os.path.join(save_dir, "news_data.json")
+    with open(save_path, "w", encoding="utf-8") as f:
         json.dump(all_news, f, ensure_ascii=False, indent=2)
         
-    print(f"Job crawling completed: {len(all_jobs)} jobs saved.")
-    print(f"News crawling completed: {len(all_news)} news saved.")
+    print(f"작업 완료: 총 {len(all_news)}개의 뉴스가 {save_path}에 저장되었습니다.")
 
 if __name__ == "__main__":
     main()
