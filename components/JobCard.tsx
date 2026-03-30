@@ -35,6 +35,7 @@ export default function JobCard({
     if (id.startsWith('jumpit')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300">점핏</span>;
     if (id.startsWith('saramin')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300">사람인</span>;
     if (id.startsWith('wanted')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-cyan-100 text-cyan-600 dark:bg-cyan-900 dark:text-cyan-300">원티드</span>;
+    if (id.startsWith('programmers')) return <span className="text-[10px] px-2 py-0.5 rounded font-medium bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300">프로그래머스</span>;
     return null;
   };
 

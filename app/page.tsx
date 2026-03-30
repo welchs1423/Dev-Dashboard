@@ -37,10 +37,12 @@ export default function Home() {
       const wanted = uniqueJobs.filter(j => j.id.startsWith('wanted'));
       const mixedJobs: Job[] = [];
       const maxLength = Math.max(jumpit.length, saramin.length, wanted.length);
+      const programmers = uniqueJobs.filter(j => j.id.startsWith('programmers'));
       for (let i = 0; i < maxLength; i++) {
         if (jumpit[i]) mixedJobs.push(jumpit[i]);
         if (saramin[i]) mixedJobs.push(saramin[i]);
         if (wanted[i]) mixedJobs.push(wanted[i]);
+        if (programmers[i]) mixedJobs.push(programmers[i]);
       }
       setJobs(mixedJobs); setIsLoading(false);
     }).catch(() => setIsLoading(false));
@@ -91,7 +93,7 @@ export default function Home() {
   };
 
   const filterOptions = ["All", "Bookmark", "Memo", "Unread", "Hidden"];
-  const platformOptions = [{ id: "All", label: "전체 플랫폼" }, { id: "jumpit", label: "점핏" }, { id: "saramin", label: "사람인" }, { id: "wanted", label: "원티드" }];
+  const platformOptions = [{ id: "All", label: "전체 플랫폼" }, { id: "jumpit", label: "점핏" }, { id: "saramin", label: "사람인" }, { id: "wanted", label: "원티드" },{ id: "programmers", label: "프로그래머스" }];
 
   const filteredJobs = jobs.filter(job => {
     if (selectedFilter === "Hidden") return hiddenCompanies.includes(job.company);
