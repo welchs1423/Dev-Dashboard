@@ -1,38 +1,33 @@
-## 🚀 Live Demo
+# ⚡ IT 도파민 충전소 (Dev-Dashboard)
 
-- **URL**: https://dev-dashboard-drab.vercel.app/
-- **Status**: Operational (Auto-updated daily at 09:00 KST)
+개발자에게 필요한 최신 IT 트렌드와 뉴스를 한곳에서 확인하고, 학습 동기를 부여하는 'IT 도파민' 대시보드입니다.
 
-# 🚀 Dev Dashboard - 개발자 커리어 대시보드
+## 🚀 주요 기능
 
-> 매일 업데이트되는 채용 공고와 기술 트렌드를 한눈에 확인하는 개발자용 대시보드입니다.
+- **글로벌 IT 뉴스 통합**: 긱뉴스(Hada), Hacker News, Dev.to의 최신 아티클 수집.
+- **실시간 한국어 번역**: `deep-translator`를 활용하여 해외 주요 IT 소식을 한국어로 자동 번역 제공.
+- **학습 미러링**: 조코딩, 코딩애플 등 주요 IT 유튜버의 영상을 대시보드 내에서 즉시 시청 가능 (예정).
+- **자동화 스케줄링**: 파이썬 스크립트를 통해 주기적으로 최신 데이터를 업데이트하고 `public/news_data.json`으로 관리.
 
-## ✨ 주요 기능
+## 🛠 기술 스택
 
-- **실시간 채용 큐레이션**: 점핏(Jumpit), 사람인(Saramin), 원티드(Wanted) API를 활용한 최신 공고 수집
-- **기술 트렌드 분석**: 수집된 데이터를 바탕으로 현재 시장에서 가장 수요가 높은 기술 스택 Top 15 시각화
-- **기술 스택 필터링**: 공고별 필수 기술 스택 시각화 및 클릭 한 번으로 원하는 기술 공고만 필터링
-- **개인화 및 편의 기능**:
-  - 텍스트 기반 공고 검색 및 브라우저 로컬스토리지 기반 찜하기(북마크)
-  - 관심 없는 기업 숨기기(블랙리스트) 기능 지원
-  - 개발자 선호 다크 모드(Dark Mode) 및 맨 위로 이동(Scroll to Top) 지원
-- **완전 자동화**: GitHub Actions를 이용해 매일 정해진 시간에 데이터 자동 갱신 및 Vercel 재배포
-
-## 🛠 Tech Stack
-
-- **Frontend**: Next.js 15, TypeScript, Tailwind CSS v4
-- **Backend/Scraper**: Python 3.10 (Requests, BeautifulSoup4)
+- **Frontend**: Next.js, Tailwind CSS, Lucide-React
+- **Backend/Scraper**: Python (Requests, BeautifulSoup4)
+- **Library**: `deep-translator` (Google Translate API 기반)
 - **Deployment**: Vercel
-- **Automation**: GitHub Actions
 
-## 🏗 시스템 구조 (Pipeline)
+## 📂 프로젝트 구조
 
-1. **Scraping**: GitHub Actions가 `scraper.py` 실행하여 3사 플랫폼 데이터 수집
-2. **Commit**: 수집된 통합 데이터(`jobs_data.json`)를 GitHub 저장소에 자동 커밋 및 푸시
-3. **Deployment**: 데이터 변경을 감지한 Vercel이 최신 코드로 즉시 빌드 및 배포
-4. **Service**: 전 세계 어디서나 최신 채용 정보와 기술 트렌드를 웹으로 확인
+- `/public/news_data.json`: 수집 및 번역된 뉴스 데이터 저장소
+- `scraper.py`: IT 뉴스 수집 및 번역 실행 스크립트
+- `/app/page.tsx`: 뉴스 리스트 및 유튜브 미러링 UI 메인 페이지
 
 ## 📅 개발 일지
+
+- **2026-03-31**
+  - 프로젝트 방향성 전면 전환 (채용 정보 -> IT 트렌드 대시보드)
+  - 해외 뉴스 API 연동 및 자동 번역 로직 구현
+  - 불필요한 채용 사이트 크롤링 로직 제거 및 코드 경량화
 
 - **2026-03-30**
   - D-Day 트래커 기능 롤백 처리
