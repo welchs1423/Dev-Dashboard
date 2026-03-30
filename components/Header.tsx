@@ -18,16 +18,14 @@ export default function Header() {
     }
   }, []);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(prev => {
-      const newTheme = !prev;
-      document.documentElement.classList.toggle('dark', newTheme);
-      localStorage.setItem('dev_dashboard_theme', newTheme ? 'dark' : 'light');
-      window.dispatchEvent(new Event('themeChange')); // Footer와 상태 동기화
-      return newTheme;
-    });
-  };
-
+const toggleDarkMode = () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  
+  setTimeout(() => {
+    window.dispatchEvent(new Event('themeChange'));
+  }, 0);
+};
   useEffect(() => {
     const handleThemeChange = () => setIsDarkMode(document.documentElement.classList.contains('dark'));
     window.addEventListener('themeChange', handleThemeChange);

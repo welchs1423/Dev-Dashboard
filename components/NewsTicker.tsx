@@ -1,39 +1,52 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 
-interface NewsItem {
-  title: string;
-  url: string;
-}
+interface NewsItem { title: string; url: string; }
 
-interface NewsTickerProps {
-  news: NewsItem[];
-}
-
-export default function NewsTicker({ news }: NewsTickerProps) {
-  const [currentNewsIndex, setCurrentNewsIndex] = useState<number>(0);
+export default function NewsTicker({ news }: { news: NewsItem[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (news.length === 0) return;
+    if (news.length === 0 || isPaused) return;
     const interval = setInterval(() => {
-      setCurrentNewsIndex((prev) => (prev + 1) % news.length);
-    }, 3000);
+      setCurrentIndex((prev) => (prev + 1) % news.length);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [news.length]);
+  }, [news.length, isPaused]);
 
   if (news.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center overflow-hidden mb-6">
-      <span className="text-xs font-bold text-white bg-blue-600 px-2 py-1 rounded mr-3 shrink-0">IT 뉴스</span>
-      <div className="flex-1 truncate">
+    <div 
+      className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 overflow-hidden mb-6 group transition-all"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+        </span>
+        <span className="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Live News</span>
+      </div>
+      
+      <div className="h-px w-4 bg-gray-200 dark:bg-gray-700 shrink-0"></div>
+
+      <div className="flex-1 overflow-hidden relative h-5">
         <a 
-          href={news[currentNewsIndex].url} 
+          href={news[currentIndex].url} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+          className="absolute inset-0 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-all truncate block"
         >
-          {news[currentNewsIndex].title}
+          {news[currentIndex].title}
         </a>
+      </div>
+
+      <div className="shrink-0 text-[10px] font-mono text-gray-400">
+        {currentIndex + 1} / {news.length}
       </div>
     </div>
   );

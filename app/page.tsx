@@ -23,7 +23,7 @@ export default function Home() {
   const [bookmarkedJobs, setBookmarkedJobs] = useState<string[]>([]);
   const [hiddenCompanies, setHiddenCompanies] = useState<string[]>([]);
   const [memos, setMemos] = useState<Record<string, string>>({});
-  const [clickedJobs, setClickedJobs] = useState<string[]>([]); // 열어본 공고 상태 추가
+  const [clickedJobs, setClickedJobs] = useState<string[]>([]); 
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -84,14 +84,12 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // 통계용 스택 추출 로직은 유지
   const getTopSkills = () => {
     const skillCounts: Record<string, number> = {};
     jobs.forEach(job => job.skills?.forEach(skill => skillCounts[skill] = (skillCounts[skill] || 0) + 1));
     return Object.entries(skillCounts).sort((a, b) => b[1] - a[1]).slice(0, 8).map(entry => entry[0]);
   };
 
-  // 스택 필터 지우고 핵심 필터만 남김
   const filterOptions = ["All", "Bookmark", "Memo", "Unread", "Hidden"];
   const platformOptions = [{ id: "All", label: "전체 플랫폼" }, { id: "jumpit", label: "점핏" }, { id: "saramin", label: "사람인" }, { id: "wanted", label: "원티드" }];
 
@@ -105,7 +103,7 @@ export default function Home() {
     if (selectedFilter === "All") matchCondition = true;
     else if (selectedFilter === "Bookmark") matchCondition = bookmarkedJobs.includes(job.id);
     else if (selectedFilter === "Memo") matchCondition = !!memos[job.id];
-    else if (selectedFilter === "Unread") matchCondition = !clickedJobs.includes(job.id); // 안 읽은 공고만 보기 필터
+    else if (selectedFilter === "Unread") matchCondition = !clickedJobs.includes(job.id); 
 
     const keyword = searchQuery.toLowerCase().trim();
     const matchSearch = keyword === "" || job.company.toLowerCase().includes(keyword) || job.title.toLowerCase().includes(keyword);
@@ -121,7 +119,6 @@ export default function Home() {
   const handleMemo = (e: React.MouseEvent, jobId: string) => { e.preventDefault(); e.stopPropagation(); const newMemo = window.prompt("메모를 남겨주세요:", memos[jobId] || ""); if (newMemo !== null) setMemos(prev => { const updated = { ...prev }; if (newMemo.trim() === "") delete updated[jobId]; else updated[jobId] = newMemo; return updated; }); };
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   
-  // 공고 클릭 시 읽음 처리 및 새 창 열기
   const handleJobClick = (jobId: string, url: string) => {
     if (!clickedJobs.includes(jobId)) {
       setClickedJobs(prev => [...prev, jobId]);
@@ -173,7 +170,24 @@ export default function Home() {
         </div>
 
         <aside className="space-y-6">
-          <div className="bg-gray-100 dark:bg-gray-800 h-64 rounded-xl flex items-center justify-center text-gray-400 text-xs border-2 border-dashed border-gray-200 dark:border-gray-700">AdSense 광고 영역</div>
+          <div className="bg-gray-100 dark:bg-gray-800 h-64 rounded-xl flex items-center justify-center text-gray-400 text-xs border-2 border-dashed border-gray-200 dark:border-gray-700">
+            AdSense 광고 영역
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+            <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 border-l-4 border-blue-500 pl-2 mb-4 uppercase tracking-tighter">Hot Keywords</h2>
+            <div className="flex flex-wrap gap-2">
+              {getTopSkills().map((skill) => (
+                <button
+                  key={skill}
+                  onClick={() => { setSearchQuery(skill); setDisplayCount(20); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="px-2.5 py-1.5 bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-[11px] font-bold rounded-lg border border-gray-100 dark:border-gray-700 transition-all"
+                >
+                  #{skill}
+                </button>
+              ))}
+            </div>
+          </div>
         </aside>
       </main>
       <Footer />

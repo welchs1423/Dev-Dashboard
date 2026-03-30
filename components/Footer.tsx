@@ -8,13 +8,25 @@ export default function Footer() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsDarkMode(document.documentElement.classList.contains('dark'));
-    const handleThemeChange = () => setIsDarkMode(document.documentElement.classList.contains('dark'));
-    window.addEventListener('themeChange', handleThemeChange);
-    return () => window.removeEventListener('themeChange', handleThemeChange);
-  }, []);
+useEffect(() => {
+  // 초기 다크모드 상태 확인
+  const checkTheme = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+  };
+
+  checkTheme();
+
+  const handleThemeChange = () => {
+    // 🚀 React가 렌더링 중일 때 setState를 호출하지 않도록 보장
+    requestAnimationFrame(() => {
+      checkTheme();
+    });
+  };
+
+  window.addEventListener('themeChange', handleThemeChange);
+  return () => window.removeEventListener('themeChange', handleThemeChange);
+}, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(prev => {
